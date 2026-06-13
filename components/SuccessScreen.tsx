@@ -36,7 +36,7 @@ export default function SuccessScreen() {
           transition={{ delay: 0.4 }}
           className="text-xl text-zinc-400"
         >
-          Thank you for participating and sharing your Favorite! 💖
+          Your votes have been recorded.
         </motion.p>
 
         <motion.div

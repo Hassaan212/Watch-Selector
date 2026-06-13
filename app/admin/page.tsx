@@ -55,9 +55,14 @@ export default function AdminDashboard() {
         const data = doc.data();
         return {
           id: doc.id,
+          // New format (3 watches)
+          watchIds: data.watchIds,
+          selectedWatches: data.selectedWatches,
+          // Old format (1 watch)
           watchId: data.watchId,
           watchBrand: data.watchBrand,
           watchModel: data.watchModel,
+          // Common fields
           sessionId: data.sessionId,
           nickname: data.nickname,
           timestamp: data.timestamp?.toDate() || new Date(),
@@ -86,7 +91,16 @@ export default function AdminDashboard() {
     const voteCounts = new Map<string, number>();
     
     subs.forEach(sub => {
-      voteCounts.set(sub.watchId, (voteCounts.get(sub.watchId) || 0) + 1);
+      // Handle NEW format (multiple watches - 3 selections)
+      if (sub.selectedWatches && Array.isArray(sub.selectedWatches)) {
+        sub.selectedWatches.forEach(watch => {
+          voteCounts.set(watch.id, (voteCounts.get(watch.id) || 0) + 1);
+        });
+      }
+      // Handle OLD format (single watch) - BACKWARD COMPATIBLE
+      else if (sub.watchId) {
+        voteCounts.set(sub.watchId, (voteCounts.get(sub.watchId) || 0) + 1);
+      }
     });
 
     const total = subs.length;
@@ -128,14 +142,28 @@ export default function AdminDashboard() {
   }
 
   function exportToCSV() {
-    const headers = ['Watch Brand', 'Watch Model', 'Timestamp', 'Session ID', 'Nickname'];
-    const rows = submissions.map(sub => [
-      sub.watchBrand,
-      sub.watchModel,
-      sub.timestamp.toISOString(),
-      sub.sessionId,
-      sub.nickname || 'Anonymous',
-    ]);
+    const headers = ['Watches Selected', 'Timestamp', 'Session ID', 'Nickname'];
+    const rows = submissions.map(sub => {
+      let watchesText = '';
+      
+      // New format (multiple watches)
+      if (sub.selectedWatches && sub.selectedWatches.length > 0) {
+        watchesText = sub.selectedWatches
+          .map(w => `${w.brand} ${w.model}`)
+          .join(' | ');
+      }
+      // Old format (single watch)
+      else if (sub.watchBrand && sub.watchModel) {
+        watchesText = `${sub.watchBrand} ${sub.watchModel}`;
+      }
+      
+      return [
+        watchesText,
+        sub.timestamp.toISOString(),
+        sub.sessionId,
+        sub.nickname || 'Anonymous',
+      ];
+    });
 
     const csv = [headers, ...rows].map(row => row.join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });

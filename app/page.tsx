@@ -11,7 +11,7 @@ import { ArrowRight, Loader2 } from 'lucide-react';
 
 export default function Home() {
   const [watches, setWatches] = useState<Watch[]>([]);
-  const [selectedWatchId, setSelectedWatchId] = useState<string | null>(null);
+  const [selectedWatchIds, setSelectedWatchIds] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasVoted, setHasVoted] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -34,20 +34,37 @@ export default function Home() {
     setLoading(false);
   }
 
-  async function handleSubmit() {
-    if (!selectedWatchId || isSubmitting) return;
+  function handleWatchSelect(watchId: string) {
+    setSelectedWatchIds(prev => {
+      // If already selected, remove it
+      if (prev.includes(watchId)) {
+        return prev.filter(id => id !== watchId);
+      }
+      // If less than 3 selected, add it
+      if (prev.length < 3) {
+        return [...prev, watchId];
+      }
+      // If already 3 selected, don't add more
+      return prev;
+    });
+  }
 
-    const selectedWatch = watches.find(w => w.id === selectedWatchId);
-    if (!selectedWatch) return;
+  async function handleSubmit() {
+    if (selectedWatchIds.length !== 3 || isSubmitting) return;
+
+    const selectedWatches = watches.filter(w => selectedWatchIds.includes(w.id));
+    if (selectedWatches.length !== 3) return;
 
     setIsSubmitting(true);
 
     try {
       const sessionId = getSessionId();
       await submitVote(
-        selectedWatch.id,
-        selectedWatch.brand,
-        selectedWatch.model,
+        selectedWatches.map(w => ({
+          id: w.id,
+          brand: w.brand,
+          model: w.model,
+        })),
         sessionId
       );
       
@@ -83,11 +100,23 @@ export default function Home() {
       >
         <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-              Pick Your Favorite Luxury Watch ✨
+            Help me settle a debate 😄
           </h1>
-          <p className="text-xl md:text-2xl text-zinc-400">
-            Choose the watch that best matches your style.
+          <p className="text-xl md:text-2xl text-zinc-400 mb-4">
+            Which 3 watches would you wear?
           </p>
+          {/* Selection Counter */}
+          {selectedWatchIds.length > 0 && (
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="inline-block px-6 py-3 bg-amber-500/10 border border-amber-500/30 rounded-full"
+            >
+              <p className="text-amber-500 font-semibold">
+                Selected {selectedWatchIds.length}/3
+              </p>
+            </motion.div>
+          )}
         </div>
       </motion.header>
 
@@ -108,8 +137,8 @@ export default function Home() {
             >
               <WatchCard
                 watch={watch}
-                isSelected={selectedWatchId === watch.id}
-                onSelect={setSelectedWatchId}
+                isSelected={selectedWatchIds.includes(watch.id)}
+                onSelect={handleWatchSelect}
               />
             </motion.div>
           ))}
@@ -124,7 +153,7 @@ export default function Home() {
 
       {/* Submit Button */}
       <AnimatePresence>
-        {selectedWatchId && (
+        {selectedWatchIds.length === 3 && (
           <motion.div
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -148,7 +177,7 @@ export default function Home() {
                   </>
                 ) : (
                   <>
-                    Submit My Choice
+                    Submit My Choices
                     <ArrowRight className="w-6 h-6" />
                   </>
                 )}

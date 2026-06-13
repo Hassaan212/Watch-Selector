@@ -33,10 +33,22 @@ export default function SubmissionsList({ submissions }: SubmissionsListProps) {
             className="bg-zinc-950 border border-zinc-800 rounded-lg p-4"
           >
             <div className="flex items-start justify-between mb-2">
-              <div>
-                <p className="text-white font-semibold">
-                  {submission.watchBrand} {submission.watchModel}
-                </p>
+              <div className="flex-1">
+                {/* Display multiple watches (new format) */}
+                {submission.selectedWatches && submission.selectedWatches.length > 0 ? (
+                  <div className="space-y-1">
+                    {submission.selectedWatches.map((watch, idx) => (
+                      <p key={idx} className="text-white font-semibold">
+                        {idx + 1}. {watch.brand} {watch.model}
+                      </p>
+                    ))}
+                  </div>
+                ) : (
+                  /* Display single watch (old format) */
+                  <p className="text-white font-semibold">
+                    {submission.watchBrand} {submission.watchModel}
+                  </p>
+                )}
                 {submission.nickname && (
                   <div className="flex items-center gap-2 mt-1">
                     <User className="w-3 h-3 text-zinc-500" />
@@ -44,7 +56,7 @@ export default function SubmissionsList({ submissions }: SubmissionsListProps) {
                   </div>
                 )}
               </div>
-              <div className="flex items-center gap-2 text-zinc-400 text-sm">
+              <div className="flex items-center gap-2 text-zinc-400 text-sm flex-shrink-0 ml-4">
                 <Clock className="w-4 h-4" />
                 {formatDate(submission.timestamp)}
               </div>

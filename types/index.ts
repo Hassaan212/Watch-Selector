@@ -8,9 +8,18 @@ export interface Watch {
 
 export interface Submission {
   id: string;
-  watchId: string;
-  watchBrand: string;
-  watchModel: string;
+  // New format (3 watches)
+  watchIds?: string[];
+  selectedWatches?: Array<{
+    id: string;
+    brand: string;
+    model: string;
+  }>;
+  // Legacy format (1 watch) - kept for backward compatibility
+  watchId?: string;
+  watchBrand?: string;
+  watchModel?: string;
+  // Common fields
   timestamp: Date;
   sessionId: string;
   nickname?: string;

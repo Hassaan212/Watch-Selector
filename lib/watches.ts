@@ -39,16 +39,13 @@ export async function deleteWatch(watchId: string): Promise<void> {
 
 // Submission Management
 export async function submitVote(
-  watchId: string,
-  watchBrand: string,
-  watchModel: string,
+  watches: Array<{ id: string; brand: string; model: string }>,
   sessionId: string,
   nickname?: string
 ): Promise<void> {
   await addDoc(collection(db, SUBMISSIONS_COLLECTION), {
-    watchId,
-    watchBrand,
-    watchModel,
+    watchIds: watches.map(w => w.id),
+    selectedWatches: watches,
     sessionId,
     nickname: nickname || null,
     timestamp: Timestamp.now(),
@@ -66,9 +63,14 @@ export async function getSubmissions(): Promise<Submission[]> {
       const data = doc.data();
       return {
         id: doc.id,
+        // New format
+        watchIds: data.watchIds,
+        selectedWatches: data.selectedWatches,
+        // Legacy format
         watchId: data.watchId,
         watchBrand: data.watchBrand,
         watchModel: data.watchModel,
+        // Common fields
         sessionId: data.sessionId,
         nickname: data.nickname,
         timestamp: data.timestamp?.toDate() || new Date(),

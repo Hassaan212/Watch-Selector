@@ -47,7 +47,7 @@ export default function SuccessScreen() {
         >
           <div className="inline-block px-6 py-3 bg-amber-500/10 border border-amber-500/30 rounded-full">
             <p className="text-amber-500 text-sm">
-              Your response has been submitted successfully.
+              Thank you for participating and sharing your favourite! 💖
             </p>
           </div>
         </motion.div>

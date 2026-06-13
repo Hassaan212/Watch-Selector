@@ -100,10 +100,10 @@ export default function Home() {
       >
         <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            Help me settle a debate 😄
+             Pick Your Favorite Luxury Watches ✨
           </h1>
           <p className="text-xl md:text-2xl text-zinc-400 mb-4">
-            Which 3 watches would you wear?
+            Which 3 watches would you like to wear?
           </p>
           {/* Selection Counter */}
           {selectedWatchIds.length > 0 && (

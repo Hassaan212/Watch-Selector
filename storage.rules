@@ -1,0 +1,19 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Watches images folder
+    // - Anyone can read (public images)
+    // - No one can write directly (uploads happen through admin dashboard)
+    match /watches/{fileName} {
+      allow read: if true;
+      allow write: if false; // Admin uploads handled via Firebase SDK with proper auth
+    }
+    
+    // Default: deny all other paths
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

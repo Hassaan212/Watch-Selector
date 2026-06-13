@@ -1,0 +1,246 @@
+FIREBASE CONSOLE - VISUAL NAVIGATION GUIDE
+==========================================
+
+This guide shows you EXACTLY what to click in Firebase Console.
+
+
+STEP 1: CREATE PROJECT
+=======================
+URL: https://console.firebase.google.com/
+
+┌─────────────────────────────────────────────────────┐
+│ Firebase Console                              [👤]  │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│   Your Firebase projects                           │
+│   ┌───────────────────────────────────────┐        │
+│   │   [+] Add project                      │  ← CLICK HERE
+│   └───────────────────────────────────────┘        │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+
+Then:
+1. Enter name: "watch-picker-dev"
+2. Click Continue
+3. Disable Google Analytics (toggle OFF)
+4. Click Create project
+
+
+STEP 2: ENABLE FIRESTORE
+=========================
+In left sidebar, look for:
+
+┌──────────────────────┐
+│ Project Overview     │
+│ 🔥 Authentication    │
+│ 🗄️ Firestore Database│  ← CLICK HERE
+│ 💾 Realtime Database │
+│ 🗂️ Storage           │
+│ 🔧 Functions         │
+└──────────────────────┘
+
+Then:
+┌─────────────────────────────────────────────────────┐
+│ Cloud Firestore                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│   Store and sync data for client- and server-side  │
+│   development                                       │
+│                                                     │
+│   ┌───────────────────────────────────────┐        │
+│   │   [Create database]                    │  ← CLICK HERE
+│   └───────────────────────────────────────┘        │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+
+Choose:
+1. ⦿ Start in production mode  ← SELECT THIS
+2. Click Next
+3. Select location: us-central (or closest to you)
+4. Click Enable
+
+
+STEP 3: ENABLE STORAGE
+=======================
+In left sidebar:
+
+┌──────────────────────┐
+│ 🗄️ Firestore Database│
+│ 🗂️ Storage           │  ← CLICK HERE
+│ 🔧 Hosting           │
+└──────────────────────┘
+
+Then:
+┌─────────────────────────────────────────────────────┐
+│ Storage                                             │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│   Store and serve user-generated content           │
+│                                                     │
+│   ┌───────────────────────────────────────┐        │
+│   │   [Get started]                        │  ← CLICK HERE
+│   └───────────────────────────────────────┘        │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+
+Then:
+1. Click Next (keep default rules)
+2. Select same location as Firestore
+3. Click Done
+
+
+STEP 4: GET CREDENTIALS
+========================
+Click the gear icon:
+
+┌──────────────────────┐
+│ [⚙️] Project Overview │  ← CLICK THE GEAR ⚙️
+│ 🔥 Authentication    │
+│ 🗄️ Firestore Database│
+└──────────────────────┘
+
+Then click:
+┌─────────────────────────────────────────────────────┐
+│ [⚙️] Project settings                               │
+│ Users and permissions                               │
+│ Integrations                                        │
+└─────────────────────────────────────────────────────┘
+       ↑ CLICK "Project settings"
+
+Scroll down to "Your apps" section:
+
+┌─────────────────────────────────────────────────────┐
+│ Your apps                                           │
+├─────────────────────────────────────────────────────┤
+│ There are no apps in your project                  │
+│                                                     │
+│ Add an app to get started                          │
+│                                                     │
+│   [iOS]  [Android]  [</>]  [Unity]                │
+│                      ↑                              │
+│                  CLICK HERE (Web icon)              │
+└─────────────────────────────────────────────────────┘
+
+Fill in:
+1. App nickname: "watch-picker-web"
+2. ☐ Also set up Firebase Hosting  ← LEAVE UNCHECKED
+3. Click "Register app"
+
+You'll see:
+┌─────────────────────────────────────────────────────┐
+│ Add Firebase SDK                                    │
+├─────────────────────────────────────────────────────┤
+│ Use npm:  [npm]  [Config]  ← CLICK "Config"       │
+│                                                     │
+│ const firebaseConfig = {                           │
+│   apiKey: "AIzaSy...",              ← COPY THESE  │
+│   authDomain: "watch-picker...",     VALUES       │
+│   projectId: "watch-picker...",                    │
+│   storageBucket: "watch-picker...",                │
+│   messagingSenderId: "123456...",                  │
+│   appId: "1:1234567..."                            │
+│ };                                                  │
+└─────────────────────────────────────────────────────┘
+
+Copy these 6 values to your .env.local file!
+
+
+STEP 5: SET FIRESTORE RULES
+============================
+Go back to Firestore:
+
+┌──────────────────────┐
+│ 🗄️ Firestore Database│  ← CLICK HERE
+└──────────────────────┘
+
+Then at the top:
+
+┌─────────────────────────────────────────────────────┐
+│ Cloud Firestore                                     │
+├─────────────────────────────────────────────────────┤
+│ [Data]  [Rules]  [Indexes]  [Usage]                │
+│          ↑                                          │
+│      CLICK "Rules"                                  │
+└─────────────────────────────────────────────────────┘
+
+You'll see a code editor. DELETE EVERYTHING and paste:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /watches/{watchId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /submissions/{submissionId} {
+      allow read: if false;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+  }
+}
+
+Then click [Publish] button at top.
+
+
+STEP 6: SET STORAGE RULES
+==========================
+Go to Storage:
+
+┌──────────────────────┐
+│ 🗂️ Storage           │  ← CLICK HERE
+└──────────────────────┘
+
+Then at the top:
+
+┌─────────────────────────────────────────────────────┐
+│ Storage                                             │
+├─────────────────────────────────────────────────────┤
+│ [Files]  [Rules]  [Usage]                          │
+│           ↑                                         │
+│      CLICK "Rules"                                  │
+└─────────────────────────────────────────────────────┘
+
+DELETE EVERYTHING and paste:
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /watches/{fileName} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}
+
+Then click [Publish] button at top.
+
+
+YOU'RE DONE! 🎉
+================
+Now your .env.local should look like:
+
+NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSy_YOUR_ACTUAL_KEY
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=watch-picker-xxxxx.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=watch-picker-xxxxx
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=watch-picker-xxxxx.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789012
+NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789012:web:abcdef123456
+
+NEXT_PUBLIC_ADMIN_PASSWORD=admin123
+
+Run: npm run dev
+Open: http://localhost:3000
+
+
+SUMMARY OF CLICKS:
+==================
+1. Firebase Console → Add project
+2. Left sidebar → Firestore Database → Create database
+3. Left sidebar → Storage → Get started
+4. Gear icon ⚙️ → Project settings → Scroll to "Your apps" → Click </> (web)
+5. Copy the 6 config values
+6. Firestore Database → Rules tab → Paste rules → Publish
+7. Storage → Rules tab → Paste rules → Publish
+
+DONE! ✅

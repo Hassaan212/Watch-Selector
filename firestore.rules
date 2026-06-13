@@ -1,0 +1,29 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Watches Collection
+    // - Anyone can read (for public voting interface)
+    // - Only admin can write (through authenticated dashboard)
+    match /watches/{watchId} {
+      allow read: if true;
+      allow write: if false; // Admin writes happen server-side or via Firebase Console
+    }
+    
+    // Submissions Collection
+    // - No one can read individual submissions (privacy)
+    // - Anyone can create (submit votes)
+    // - No updates or deletes allowed
+    match /submissions/{submissionId} {
+      allow read: if false; // Admin dashboard uses Firebase Admin SDK or service account
+      allow create: if request.resource.data.keys().hasAll(['watchId', 'watchBrand', 'watchModel', 'sessionId', 'timestamp'])
+                    && request.resource.data.watchId is string
+                    && request.resource.data.watchBrand is string
+                    && request.resource.data.watchModel is string
+                    && request.resource.data.sessionId is string
+                    && request.resource.data.timestamp is timestamp;
+      allow update, delete: if false;
+    }
+  }
+}

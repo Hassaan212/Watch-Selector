@@ -13,23 +13,99 @@ interface StatsCardProps {
 export default function StatsCard({ icon, label, value, color = 'gold' }: StatsCardProps) {
   return (
     <motion.div
-      whileHover={{ scale: 1.02, y: -4 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      className="glass-panel glass-panel-hover rounded-[24px] p-6 relative overflow-hidden group"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        type: 'spring',
+        stiffness: 200,
+        damping: 25,
+        mass: 0.8
+      }}
+      whileHover={{
+        y: -3,
+        scale: 1.015,
+        transition: {
+          type: 'spring',
+          stiffness: 400,
+          damping: 25
+        }
+      }}
+      className="glass-panel rounded-[28px] p-7 relative overflow-hidden group cursor-pointer"
+      style={{
+        boxShadow: '0 12px 40px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(248, 248, 240, 0.08)',
+        transition: 'box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+      }}
     >
-      {/* Ambient glow effect */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent" />
-      </div>
+      {/* Hover state enhancements */}
+      <style jsx>{`
+        .glass-panel:hover {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
+          box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.6), 
+                      0 0 0 1px rgba(212, 175, 55, 0.2),
+                      inset 0 1px 0 0 rgba(248, 248, 240, 0.12) !important;
+        }
+      `}</style>
+
+      {/* Refined hover glow */}
+      <motion.div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none rounded-[28px]"
+        style={{
+          background: 'radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.06) 0%, transparent 70%)'
+        }}
+        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+      />
 
       <div className="relative z-10">
-        <div className="inline-flex p-3 glass-panel rounded-[16px] mb-4 border border-gold/20">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{
+            type: 'spring',
+            stiffness: 300,
+            damping: 20,
+            delay: 0.1
+          }}
+          whileHover={{
+            scale: 1.05,
+            transition: {
+              type: 'spring',
+              stiffness: 400,
+              damping: 20
+            }
+          }}
+          className="inline-flex p-3.5 glass-panel rounded-[18px] mb-5"
+          style={{
+            boxShadow: 'inset 0 1px 0 0 rgba(248, 248, 240, 0.1), 0 4px 12px rgba(0, 0, 0, 0.3)',
+            border: '1px solid rgba(212, 175, 55, 0.15)'
+          }}
+        >
           <div className="text-gold">
             {icon}
           </div>
-        </div>
-        <p className="text-white/60 text-sm mb-2">{label}</p>
-        <p className="text-white text-3xl font-bold tracking-tight">{value}</p>
+        </motion.div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15 }}
+          className="text-white/60 text-sm mb-3 font-medium group-hover:text-white/75"
+          style={{ transition: 'color 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
+        >
+          {label}
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            type: 'spring',
+            stiffness: 150,
+            damping: 20,
+            delay: 0.2
+          }}
+          className="text-white text-3xl font-bold tracking-tight group-hover:text-white"
+          style={{ transition: 'color 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
+        >
+          {value}
+        </motion.p>
       </div>
     </motion.div>
   );

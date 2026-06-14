@@ -121,12 +121,40 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen liquid-glass-bg flex items-center justify-center">
+      <div className="min-h-screen liquid-glass-bg flex items-center justify-center relative overflow-hidden">
+        {/* Ambient loading glow */}
         <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.06, 0.12, 0.06],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute w-[800px] h-[800px] rounded-full blur-[200px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.05) 50%, transparent 70%)'
+          }}
+        />
+        
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            type: 'spring',
+            stiffness: 200,
+            damping: 20
+          }}
+          className="relative z-10"
         >
-          <Loader2 className="w-12 h-12 text-gold" strokeWidth={1.5} />
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+          >
+            <Loader2 className="w-12 h-12 text-gold" strokeWidth={1.5} />
+          </motion.div>
         </motion.div>
       </div>
     );

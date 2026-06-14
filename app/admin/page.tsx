@@ -301,12 +301,40 @@ export default function AdminDashboard() {
   // Loading State
   if (loading) {
     return (
-      <div className="min-h-screen liquid-glass-bg flex items-center justify-center">
+      <div className="min-h-screen liquid-glass-bg flex items-center justify-center relative overflow-hidden">
+        {/* Ambient loading glow */}
         <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.06, 0.12, 0.06],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute w-[800px] h-[800px] rounded-full blur-[200px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.05) 50%, transparent 70%)'
+          }}
+        />
+        
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            type: 'spring',
+            stiffness: 200,
+            damping: 20
+          }}
+          className="relative z-10"
         >
-          <Loader2 className="w-12 h-12 text-gold" strokeWidth={1.5} />
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+          >
+            <Loader2 className="w-12 h-12 text-gold" strokeWidth={1.5} />
+          </motion.div>
         </motion.div>
       </div>
     );
@@ -352,73 +380,199 @@ export default function AdminDashboard() {
         />
       </div>
 
-      {/* Header */}
-      <header className="glass-panel border-b border-white/5 sticky top-0 z-50 backdrop-blur-2xl">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      {/* Premium Header */}
+      <motion.header
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          type: 'spring',
+          stiffness: 200,
+          damping: 25
+        }}
+        className="glass-panel border-b border-white/5 sticky top-0 z-50 backdrop-blur-2xl"
+        style={{
+          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.3)'
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-4 py-5 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-white tracking-tight">Watch Picker Admin</h1>
           <div className="flex items-center gap-3">
-            <button
+            <motion.button
+              whileHover={{
+                scale: 1.02,
+                y: -1,
+                transition: {
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 25
+                }
+              }}
+              whileTap={{
+                scale: 0.98,
+                transition: {
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 25
+                }
+              }}
               onClick={exportToCSV}
-              className="flex items-center gap-2 px-4 py-2.5 glass-panel glass-panel-hover rounded-[16px] text-white text-sm transition-all duration-300"
+              className="flex items-center gap-2 px-5 py-2.5 glass-panel rounded-[18px] text-white text-sm cursor-pointer group"
+              style={{
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(248, 248, 240, 0.06)',
+                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
             >
-              <Download className="w-4 h-4" strokeWidth={1.5} />
-              Export CSV
-            </button>
-            <button
+              <style jsx>{`
+                button:hover {
+                  background: linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
+                  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 
+                              0 0 0 1px rgba(212, 175, 55, 0.12),
+                              inset 0 1px 0 rgba(248, 248, 240, 0.08) !important;
+                }
+              `}</style>
+              <Download className="w-4 h-4 group-hover:text-gold transition-colors duration-200" strokeWidth={1.5} />
+              <span className="group-hover:text-white transition-colors duration-200">Export CSV</span>
+            </motion.button>
+            <motion.button
+              whileHover={{
+                scale: 1.02,
+                y: -1,
+                transition: {
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 25
+                }
+              }}
+              whileTap={{
+                scale: 0.98,
+                transition: {
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 25
+                }
+              }}
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2.5 glass-panel glass-panel-hover rounded-[16px] text-white transition-all duration-300"
+              className="flex items-center gap-2 px-5 py-2.5 glass-panel rounded-[18px] text-white cursor-pointer group"
+              style={{
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(248, 248, 240, 0.06)',
+                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
             >
-              <LogOut className="w-4 h-4" strokeWidth={1.5} />
-              Logout
-            </button>
+              <style jsx>{`
+                button:hover {
+                  background: linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
+                  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 
+                              0 0 0 1px rgba(212, 175, 55, 0.12),
+                              inset 0 1px 0 rgba(248, 248, 240, 0.08) !important;
+                }
+              `}</style>
+              <LogOut className="w-4 h-4 group-hover:text-gold transition-colors duration-200" strokeWidth={1.5} />
+              <span className="group-hover:text-white transition-colors duration-200">Logout</span>
+            </motion.button>
           </div>
         </div>
 
-        {/* Tabs */}
+        {/* Refined Tabs */}
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex gap-4 border-b border-zinc-800">
-            <button
+          <div className="flex gap-6 border-b border-white/[0.08]">
+            <motion.button
+              whileHover={{
+                y: -1,
+                transition: {
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 25
+                }
+              }}
               onClick={() => setActiveTab('overview')}
-              className={`px-4 py-3 font-medium transition-colors relative ${
+              className={`px-5 py-3.5 font-semibold transition-colors relative cursor-pointer ${
                 activeTab === 'overview'
-                  ? 'text-amber-500'
-                  : 'text-zinc-400 hover:text-white'
+                  ? 'text-gold'
+                  : 'text-white/50 hover:text-white'
               }`}
+              style={{
+                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
             >
               Overview
               {activeTab === 'overview' && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-500"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] rounded-t-full"
+                  style={{
+                    background: 'linear-gradient(90deg, rgba(212, 175, 55, 0.6), rgba(212, 175, 55, 1), rgba(212, 175, 55, 0.6))',
+                    boxShadow: '0 0 12px rgba(212, 175, 55, 0.6)'
+                  }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 400,
+                    damping: 30
+                  }}
                 />
               )}
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileHover={{
+                y: -1,
+                transition: {
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 25
+                }
+              }}
               onClick={() => setActiveTab('management')}
-              className={`px-4 py-3 font-medium transition-colors relative ${
+              className={`px-5 py-3.5 font-semibold transition-colors relative cursor-pointer ${
                 activeTab === 'management'
-                  ? 'text-amber-500'
-                  : 'text-zinc-400 hover:text-white'
+                  ? 'text-gold'
+                  : 'text-white/50 hover:text-white'
               }`}
+              style={{
+                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
             >
               Manage Watches
               {activeTab === 'management' && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-500"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] rounded-t-full"
+                  style={{
+                    background: 'linear-gradient(90deg, rgba(212, 175, 55, 0.6), rgba(212, 175, 55, 1), rgba(212, 175, 55, 0.6))',
+                    boxShadow: '0 0 12px rgba(212, 175, 55, 0.6)'
+                  }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 400,
+                    damping: 30
+                  }}
                 />
               )}
-            </button>
+            </motion.button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
         {activeTab === 'overview' ? (
-          <div className="space-y-8">
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
+            className="space-y-8"
+          >
+            {/* Stats Cards with Staggered Animation */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: {
+                  transition: {
+                    staggerChildren: 0.08
+                  }
+                }
+              }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            >
               <StatsCard
                 icon={<Users className="w-6 h-6" />}
                 label="Total Votes"
@@ -437,7 +591,7 @@ export default function AdminDashboard() {
                 value={topWatch ? `${topWatch.percentage.toFixed(1)}%` : '0%'}
                 color="gold"
               />
-            </div>
+            </motion.div>
 
             {/* Rankings */}
             <RankingsList stats={stats} />
@@ -453,9 +607,19 @@ export default function AdminDashboard() {
 
             {/* Recent Submissions */}
             <SubmissionsList submissions={submissions} />
-          </div>
+          </motion.div>
         ) : (
-          <WatchManagement watches={watches} onUpdate={loadData} />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              type: 'spring',
+              stiffness: 200,
+              damping: 25
+            }}
+          >
+            <WatchManagement watches={watches} onUpdate={loadData} />
+          </motion.div>
         )}
       </main>
     </div>

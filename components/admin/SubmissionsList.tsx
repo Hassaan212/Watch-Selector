@@ -21,16 +21,16 @@ export default function SubmissionsList({ submissions }: SubmissionsListProps) {
   };
 
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-      <h2 className="text-xl font-bold text-white mb-6">Recent Submissions</h2>
-      <div className="space-y-3 max-h-[600px] overflow-y-auto">
+    <div className="glass-panel rounded-[24px] p-6">
+      <h2 className="text-xl font-bold text-white mb-6 tracking-tight">Recent Submissions</h2>
+      <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2">
         {submissions.map((submission, index) => (
           <motion.div
             key={submission.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.03 }}
-            className="bg-zinc-950 border border-zinc-800 rounded-lg p-4"
+            className="glass-panel glass-panel-hover rounded-[16px] p-4"
           >
             <div className="flex items-start justify-between mb-2">
               <div className="flex-1">
@@ -38,7 +38,7 @@ export default function SubmissionsList({ submissions }: SubmissionsListProps) {
                 {submission.selectedWatches && submission.selectedWatches.length > 0 ? (
                   <div className="space-y-2">
                     <div className="space-y-1">
-                      <p className="text-zinc-500 text-xs uppercase">Round 1 Selections:</p>
+                      <p className="text-white/50 text-xs uppercase tracking-wider">Round 1 Selections:</p>
                       {submission.selectedWatches.map((watch, idx) => (
                         <p key={idx} className="text-white font-semibold text-sm">
                           {idx + 1}. {watch.brand} {watch.model}
@@ -47,12 +47,12 @@ export default function SubmissionsList({ submissions }: SubmissionsListProps) {
                     </div>
                     {/* Display final winner if exists */}
                     {submission.finalWinner && (
-                      <div className="mt-2 pt-2 border-t border-zinc-700">
+                      <div className="mt-2 pt-2 border-t border-white/5">
                         <div className="flex items-center gap-2 mb-1">
-                          <Trophy className="w-4 h-4 text-amber-500" />
-                          <p className="text-amber-500 text-xs uppercase font-semibold">Best of Best:</p>
+                          <Trophy className="w-4 h-4 text-gold" strokeWidth={1.5} />
+                          <p className="text-gold text-xs uppercase font-semibold tracking-wider">Best of Best:</p>
                         </div>
-                        <p className="text-amber-400 font-bold">
+                        <p className="text-gold font-bold">
                           {submission.finalWinner.brand} {submission.finalWinner.model}
                         </p>
                       </div>
@@ -67,30 +67,30 @@ export default function SubmissionsList({ submissions }: SubmissionsListProps) {
                 {/* Participant Name */}
                 {submission.participantName && (
                   <div className="flex items-center gap-2 mt-2">
-                    <User className="w-3 h-3 text-amber-500" />
-                    <p className="text-amber-400 text-sm font-medium">{submission.participantName}</p>
+                    <User className="w-3 h-3 text-gold" strokeWidth={1.5} />
+                    <p className="text-gold text-sm font-medium">{submission.participantName}</p>
                   </div>
                 )}
                 {/* Legacy nickname field */}
                 {!submission.participantName && submission.nickname && (
                   <div className="flex items-center gap-2 mt-2">
-                    <User className="w-3 h-3 text-zinc-500" />
-                    <p className="text-zinc-400 text-sm">{submission.nickname}</p>
+                    <User className="w-3 h-3 text-white/50" strokeWidth={1.5} />
+                    <p className="text-white/60 text-sm">{submission.nickname}</p>
                   </div>
                 )}
               </div>
-              <div className="flex items-center gap-2 text-zinc-400 text-sm flex-shrink-0 ml-4">
-                <Clock className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-white/50 text-sm flex-shrink-0 ml-4">
+                <Clock className="w-4 h-4" strokeWidth={1.5} />
                 {formatDate(submission.timestamp)}
               </div>
             </div>
-            <p className="text-zinc-500 text-xs font-mono truncate">
+            <p className="text-white/30 text-xs font-mono truncate">
               Session: {submission.sessionId}
             </p>
           </motion.div>
         ))}
         {submissions.length === 0 && (
-          <p className="text-zinc-400 text-center py-8">No submissions yet</p>
+          <p className="text-white/40 text-center py-8">No submissions yet</p>
         )}
       </div>
     </div>

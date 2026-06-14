@@ -8,7 +8,7 @@ import { getSessionId, hasSubmitted, markAsSubmitted } from '@/lib/sessionId';
 import WatchCard from '@/components/WatchCard';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import SuccessScreen from '@/components/SuccessScreen';
-import { ArrowRight, Loader2, Trophy } from 'lucide-react';
+import { ArrowRight, Loader2, Trophy, Sparkles, Check } from 'lucide-react';
 
 type VotingStage = 'welcome' | 'round1' | 'round2' | 'success';
 
@@ -121,8 +121,13 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 flex items-center justify-center">
-        <Loader2 className="w-12 h-12 text-amber-500 animate-spin" />
+      <div className="min-h-screen liquid-glass-bg flex items-center justify-center">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        >
+          <Loader2 className="w-12 h-12 text-gold" strokeWidth={1.5} />
+        </motion.div>
       </div>
     );
   }
@@ -138,28 +143,68 @@ export default function Home() {
   // Round 1: Select 5 watches
   if (stage === 'round1') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950">
+      <div className="min-h-screen liquid-glass-bg relative overflow-hidden">
+        {/* Ambient Light Effects */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.02, 0.04, 0.02],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-gold blur-[150px]"
+          />
+          <motion.div
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.01, 0.03, 0.01],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+            className="absolute bottom-0 right-1/4 w-[600px] h-[600px] rounded-full bg-white blur-[150px]"
+          />
+        </div>
+
         {/* Header */}
         <motion.header
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="pt-12 pb-8 px-4"
+          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          className="pt-16 pb-12 px-4 relative z-10"
         >
           <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-              Help me settle a debate 😄
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="inline-flex items-center gap-2 mb-6"
+            >
+              <Sparkles className="w-6 h-6 text-gold" strokeWidth={1.5} />
+            </motion.div>
+            
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight">
+              Help me settle a debate
             </h1>
-            <p className="text-xl md:text-2xl text-zinc-400 mb-4">
+            <p className="text-xl md:text-2xl text-white/60 mb-6">
               Select your 5 favorite luxury watches
             </p>
+            
             {/* Selection Counter */}
             {selectedWatchIds.length > 0 && (
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="inline-block px-6 py-3 bg-amber-500/10 border border-amber-500/30 rounded-full"
+                className="inline-block glass-panel px-8 py-4 rounded-[24px] border border-gold/30"
               >
-                <p className="text-amber-500 font-semibold">
+                <p className="text-gold font-semibold text-lg">
                   Selected {selectedWatchIds.length}/5
                 </p>
               </motion.div>
@@ -168,19 +213,23 @@ export default function Home() {
         </motion.header>
 
         {/* Watches Grid */}
-        <main className="max-w-7xl mx-auto px-4 pb-32">
+        <main className="max-w-7xl mx-auto px-4 pb-40 relative z-10">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             {watches.map((watch, index) => (
               <motion.div
                 key={watch.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ 
+                  delay: 0.1 * index,
+                  duration: 0.6,
+                  ease: [0.4, 0, 0.2, 1]
+                }}
               >
                 <WatchCard
                   watch={watch}
@@ -193,7 +242,7 @@ export default function Home() {
 
           {watches.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-zinc-400 text-lg">No watches available yet.</p>
+              <p className="text-white/40 text-lg">No watches available yet.</p>
             </div>
           )}
         </main>
@@ -205,19 +254,22 @@ export default function Home() {
               initial={{ y: 100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 100, opacity: 0 }}
-              className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950/95 to-transparent"
+              transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+              className="fixed bottom-0 left-0 right-0 p-6 z-20"
+              style={{
+                background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 80%, transparent 100%)'
+              }}
             >
               <div className="max-w-md mx-auto">
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={proceedToRound2}
-                  className="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-black font-bold text-lg py-4 px-8 rounded-full
-                    shadow-2xl shadow-amber-500/30 hover:shadow-amber-500/50 transition-all duration-300
-                    flex items-center justify-center gap-3"
+                  className="w-full glass-button text-black font-bold text-lg py-5 px-8 rounded-[24px]
+                    flex items-center justify-center gap-3 shadow-2xl"
                 >
                   Continue to Final Round
-                  <ArrowRight className="w-6 h-6" />
+                  <ArrowRight className="w-6 h-6" strokeWidth={2.5} />
                 </motion.button>
               </div>
             </motion.div>
@@ -231,43 +283,77 @@ export default function Home() {
   const selectedWatches = watches.filter(w => selectedWatchIds.includes(w.id));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950">
+    <div className="min-h-screen liquid-glass-bg relative overflow-hidden">
+      {/* Ambient Light Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.03, 0.06, 0.03],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-gold blur-[180px]"
+        />
+      </div>
+
       {/* Header */}
       <motion.header
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="pt-12 pb-8 px-4"
+        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+        className="pt-16 pb-12 px-4 relative z-10"
       >
         <div className="max-w-6xl mx-auto text-center">
-          <div className="inline-block mb-4">
-            <Trophy className="w-16 h-16 text-amber-500 mx-auto" />
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ 
+              delay: 0.2,
+              type: 'spring',
+              stiffness: 200,
+              damping: 15
+            }}
+            className="inline-block mb-6"
+          >
+            <div className="glass-panel p-6 rounded-[28px]">
+              <Trophy className="w-16 h-16 text-gold" strokeWidth={1.5} />
+            </div>
+          </motion.div>
+          
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight">
             Best of Best
           </h1>
-          <p className="text-xl md:text-2xl text-zinc-400 mb-4">
+          <p className="text-xl md:text-2xl text-white/60 mb-6">
             Now choose your ultimate favorite from your top 5
           </p>
+          
           {finalWinnerId && (
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="inline-block px-6 py-3 bg-amber-500/10 border border-amber-500/30 rounded-full"
+              className="inline-block glass-panel px-8 py-4 rounded-[24px] border border-gold/30"
             >
-              <p className="text-amber-500 font-semibold">
-                ✓ Ultimate Favorite Selected
-              </p>
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-gold" strokeWidth={2.5} />
+                <p className="text-gold font-semibold text-lg">
+                  Ultimate Favorite Selected
+                </p>
+              </div>
             </motion.div>
           )}
         </div>
       </motion.header>
 
       {/* Selected 5 Watches Grid */}
-      <main className="max-w-7xl mx-auto px-4 pb-32">
+      <main className="max-w-7xl mx-auto px-4 pb-40 relative z-10">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {selectedWatches.map((watch, index) => (
@@ -275,7 +361,11 @@ export default function Home() {
               key={watch.id}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ 
+                delay: 0.1 * index,
+                duration: 0.6,
+                ease: [0.4, 0, 0.2, 1]
+              }}
             >
               <WatchCard
                 watch={watch}
@@ -294,7 +384,11 @@ export default function Home() {
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
-            className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950/95 to-transparent"
+            transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+            className="fixed bottom-0 left-0 right-0 p-6 z-20"
+            style={{
+              background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 80%, transparent 100%)'
+            }}
           >
             <div className="max-w-md mx-auto">
               <motion.button
@@ -302,18 +396,17 @@ export default function Home() {
                 whileTap={{ scale: 0.98 }}
                 onClick={handleFinalSubmit}
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-black font-bold text-lg py-4 px-8 rounded-full
-                  shadow-2xl shadow-amber-500/30 hover:shadow-amber-500/50 transition-all duration-300
-                  disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                className="w-full glass-button text-black font-bold text-lg py-5 px-8 rounded-[24px]
+                  disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-3 shadow-2xl"
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="w-6 h-6 animate-spin" />
+                    <Loader2 className="w-6 h-6 animate-spin" strokeWidth={2.5} />
                     Submitting...
                   </>
                 ) : (
                   <>
-                    <Trophy className="w-6 h-6" />
+                    <Trophy className="w-6 h-6" strokeWidth={2.5} />
                     Submit Final Choice
                   </>
                 )}

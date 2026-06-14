@@ -14,6 +14,7 @@ import {
   LogOut,
   Settings,
   Loader2,
+  Download,
 } from 'lucide-react';
 import WatchManagement from '@/components/admin/WatchManagement';
 import StatsCard from '@/components/admin/StatsCard';
@@ -226,37 +227,64 @@ export default function AdminDashboard() {
   // Login Screen
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 flex items-center justify-center p-4">
+      <div className="min-h-screen liquid-glass-bg flex items-center justify-center p-4 relative overflow-hidden">
+        {/* Ambient Light Effects */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.03, 0.05, 0.03],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-gold blur-[120px]"
+          />
+        </div>
+
         <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
+          initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="w-full max-w-md"
+          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          className="w-full max-w-md relative z-10"
         >
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 shadow-2xl">
+          <div className="glass-panel rounded-[30px] p-10 shadow-2xl">
             <div className="text-center mb-8">
-              <div className="inline-block p-3 bg-amber-500/10 rounded-full mb-4">
-                <Settings className="w-8 h-8 text-amber-500" />
-              </div>
-              <h1 className="text-3xl font-bold text-white mb-2">Admin Dashboard</h1>
-              <p className="text-zinc-400">Enter password to continue</p>
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ 
+                  delay: 0.2,
+                  type: 'spring',
+                  stiffness: 200,
+                  damping: 15
+                }}
+                className="inline-flex p-5 glass-panel rounded-[24px] mb-6"
+              >
+                <Settings className="w-8 h-8 text-gold" strokeWidth={1.5} />
+              </motion.div>
+              <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Admin Dashboard</h1>
+              <p className="text-white/60">Enter password to continue</p>
             </div>
 
-            <form onSubmit={handleLogin} className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-6">
               <div>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter admin password"
-                  className="w-full px-4 py-3 bg-zinc-950 border border-zinc-800 rounded-lg text-white
-                    focus:outline-none focus:border-amber-500 transition-colors"
+                  className="w-full px-5 py-4 glass-input rounded-[20px] text-white
+                    focus:outline-none transition-all duration-300 placeholder:text-white/30"
                   required
                 />
               </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-black font-bold py-3 rounded-lg
-                  hover:shadow-lg hover:shadow-amber-500/30 transition-all duration-300"
+                className="w-full glass-button text-black font-semibold py-4 rounded-[20px]
+                  transition-all duration-300"
               >
                 Login
               </button>
@@ -270,8 +298,13 @@ export default function AdminDashboard() {
   // Loading State
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 flex items-center justify-center">
-        <Loader2 className="w-12 h-12 text-amber-500 animate-spin" />
+      <div className="min-h-screen liquid-glass-bg flex items-center justify-center">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        >
+          <Loader2 className="w-12 h-12 text-gold" strokeWidth={1.5} />
+        </motion.div>
       </div>
     );
   }
@@ -280,23 +313,53 @@ export default function AdminDashboard() {
   const totalVotes = submissions.length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950">
+    <div className="min-h-screen liquid-glass-bg relative overflow-hidden">
+      {/* Ambient Light Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.02, 0.04, 0.02],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-gold blur-[150px]"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.015, 0.03, 0.015],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+          className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-white blur-[150px]"
+        />
+      </div>
+
       {/* Header */}
-      <header className="border-b border-zinc-800 bg-zinc-900/50 backdrop-blur-sm sticky top-0 z-50">
+      <header className="glass-panel border-b border-white/5 sticky top-0 z-50 backdrop-blur-2xl">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-white">Watch Picker Admin</h1>
-          <div className="flex items-center gap-4">
+          <h1 className="text-2xl font-bold text-white tracking-tight">Watch Picker Admin</h1>
+          <div className="flex items-center gap-3">
             <button
               onClick={exportToCSV}
-              className="px-4 py-2 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors text-sm"
+              className="flex items-center gap-2 px-4 py-2.5 glass-panel glass-panel-hover rounded-[16px] text-white text-sm transition-all duration-300"
             >
+              <Download className="w-4 h-4" strokeWidth={1.5} />
               Export CSV
             </button>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 glass-panel glass-panel-hover rounded-[16px] text-white transition-all duration-300"
             >
-              <LogOut className="w-4 h-4" />
+              <LogOut className="w-4 h-4" strokeWidth={1.5} />
               Logout
             </button>
           </div>
@@ -351,19 +414,19 @@ export default function AdminDashboard() {
                 icon={<Users className="w-6 h-6" />}
                 label="Total Votes"
                 value={totalVotes.toString()}
-                color="amber"
+                color="gold"
               />
               <StatsCard
                 icon={<Trophy className="w-6 h-6" />}
                 label="Most Popular"
                 value={topWatch ? `${topWatch.brand} ${topWatch.model}` : 'N/A'}
-                color="amber"
+                color="gold"
               />
               <StatsCard
                 icon={<BarChart3 className="w-6 h-6" />}
                 label="Top Vote %"
                 value={topWatch ? `${topWatch.percentage.toFixed(1)}%` : '0%'}
-                color="amber"
+                color="gold"
               />
             </div>
 

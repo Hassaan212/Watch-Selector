@@ -16,73 +16,115 @@ export default function WatchCard({ watch, isSelected, onSelect }: WatchCardProp
 
   return (
     <motion.div
-      whileHover={{ scale: 1.02, y: -5 }}
+      whileHover={{ scale: 1.02, y: -8 }}
       whileTap={{ scale: 0.98 }}
-      className="relative cursor-pointer"
+      className="relative cursor-pointer group"
       onClick={() => onSelect(watch.id)}
     >
       <div
         className={`
-          relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800
-          border-2 transition-all duration-300
+          relative overflow-hidden rounded-[28px] transition-all duration-500
           ${
             isSelected
-              ? 'border-amber-500 shadow-2xl shadow-amber-500/30'
-              : 'border-zinc-700 hover:border-zinc-600'
+              ? 'glass-panel-selected'
+              : 'glass-panel glass-panel-hover'
           }
         `}
       >
-        {/* Selected Indicator */}
+        {/* Selected Indicator with Premium Animation */}
         {isSelected && (
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="absolute top-4 right-4 z-10 bg-amber-500 text-black rounded-full p-2"
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ 
+              type: 'spring',
+              stiffness: 260,
+              damping: 20
+            }}
+            className="absolute top-5 right-5 z-10 glass-button rounded-full p-2.5 shadow-lg"
           >
-            <Check className="w-6 h-6" />
+            <Check className="w-5 h-5 text-black" strokeWidth={3} />
+            <motion.div
+              animate={{ 
+                scale: [1, 1.4, 1],
+                opacity: [0.5, 0, 0.5]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="absolute inset-0 bg-gold rounded-full blur-md"
+            />
           </motion.div>
         )}
 
-        {/* Watch Image */}
-        <div className="relative h-72 bg-zinc-950 overflow-hidden flex items-center justify-center">
+        {/* Watch Image with Glass Overlay */}
+        <div className="relative h-72 overflow-hidden flex items-center justify-center bg-black/20">
           {imageError ? (
-            // Fallback placeholder for broken images
-            <div className="flex flex-col items-center justify-center text-zinc-600">
-              <WatchIcon className="w-20 h-20 mb-2" />
+            <div className="flex flex-col items-center justify-center text-white/40">
+              <WatchIcon className="w-20 h-20 mb-2" strokeWidth={1} />
               <p className="text-sm">Image unavailable</p>
             </div>
           ) : (
-            <img
-              src={watch.image}
-              alt={`${watch.brand} ${watch.model}`}
-              className="w-full h-full object-cover"
-              onError={() => setImageError(true)}
-              loading="lazy"
-            />
+            <>
+              <img
+                src={watch.image}
+                alt={`${watch.brand} ${watch.model}`}
+                className="w-full h-full object-cover"
+                onError={() => setImageError(true)}
+                loading="lazy"
+              />
+              {/* Gradient overlay for luxury effect */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+            </>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent" />
         </div>
 
-        {/* Watch Details */}
-        <div className="p-6">
-          <p className="text-amber-500 text-sm font-medium uppercase tracking-wider mb-1">
+        {/* Watch Details with Glass Effect */}
+        <div className="relative p-6 bg-gradient-to-b from-transparent to-black/20">
+          <p className="text-gold text-sm font-medium uppercase tracking-[0.2em] mb-2 opacity-90">
             {watch.brand}
           </p>
-          <h3 className="text-white text-xl font-semibold mb-2">
+          <h3 className="text-white text-xl font-semibold mb-2 tracking-tight">
             {watch.model}
           </h3>
           {watch.description && (
-            <p className="text-zinc-400 text-sm line-clamp-2">
+            <p className="text-white/50 text-sm line-clamp-2 leading-relaxed">
               {watch.description}
             </p>
           )}
         </div>
 
-        {/* Glow Effect */}
+        {/* Hover Glow Effect */}
+        <motion.div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 70%)'
+          }}
+        />
+
+        {/* Selected Glow */}
         {isSelected && (
-          <div className="absolute inset-0 bg-amber-500/5 pointer-events-none" />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 70%)'
+            }}
+          />
         )}
       </div>
+
+      {/* Floating shadow effect */}
+      {isSelected && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="absolute inset-0 -z-10 rounded-[28px] blur-2xl bg-gold/20"
+        />
+      )}
     </motion.div>
   );
 }

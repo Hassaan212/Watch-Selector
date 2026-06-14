@@ -7,26 +7,30 @@ interface StatsCardProps {
   icon: ReactNode;
   label: string;
   value: string;
-  color?: 'amber' | 'blue' | 'green';
+  color?: 'gold' | 'blue' | 'green';
 }
 
-export default function StatsCard({ icon, label, value, color = 'amber' }: StatsCardProps) {
-  const colorClasses = {
-    amber: 'bg-amber-500/10 text-amber-500 border-amber-500/20',
-    blue: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
-    green: 'bg-green-500/10 text-green-500 border-green-500/20',
-  };
-
+export default function StatsCard({ icon, label, value, color = 'gold' }: StatsCardProps) {
   return (
     <motion.div
-      whileHover={{ scale: 1.02 }}
-      className="bg-zinc-900 border border-zinc-800 rounded-xl p-6"
+      whileHover={{ scale: 1.02, y: -4 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className="glass-panel glass-panel-hover rounded-[24px] p-6 relative overflow-hidden group"
     >
-      <div className={`inline-flex p-3 rounded-lg mb-4 ${colorClasses[color]}`}>
-        {icon}
+      {/* Ambient glow effect */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent" />
       </div>
-      <p className="text-zinc-400 text-sm mb-1">{label}</p>
-      <p className="text-white text-2xl font-bold">{value}</p>
+
+      <div className="relative z-10">
+        <div className="inline-flex p-3 glass-panel rounded-[16px] mb-4 border border-gold/20">
+          <div className="text-gold">
+            {icon}
+          </div>
+        </div>
+        <p className="text-white/60 text-sm mb-2">{label}</p>
+        <p className="text-white text-3xl font-bold tracking-tight">{value}</p>
+      </div>
     </motion.div>
   );
 }

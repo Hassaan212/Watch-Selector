@@ -6,19 +6,38 @@ import { CheckCircle, Sparkles } from 'lucide-react';
 export default function SuccessScreen() {
   return (
     <div className="min-h-screen liquid-glass-bg flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Ambient Light Effects */}
+      {/* Luxury Ambient Lighting - Celebratory Gold Radiance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{
             scale: [1, 1.4, 1],
-            opacity: [0.04, 0.08, 0.04],
+            opacity: [0.10, 0.16, 0.10],
           }}
           transition={{
-            duration: 6,
+            duration: 8,
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gold blur-[180px]"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] rounded-full blur-[240px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, rgba(212, 175, 55, 0.12) 35%, transparent 60%)'
+          }}
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.25, 1],
+            opacity: [0.06, 0.10, 0.06],
+          }}
+          transition={{
+            duration: 11,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+          className="absolute top-[25%] right-[15%] w-[600px] h-[600px] rounded-full blur-[160px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(192, 192, 192, 0.15) 0%, rgba(192, 192, 192, 0.06) 45%, transparent 70%)'
+          }}
         />
       </div>
 

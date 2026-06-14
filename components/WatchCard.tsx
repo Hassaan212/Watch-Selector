@@ -31,7 +31,7 @@ export default function WatchCard({ watch, isSelected, onSelect }: WatchCardProp
           }
         `}
       >
-        {/* Selected Indicator with Premium Animation */}
+        {/* Selected Indicator - Circular Badge */}
         {isSelected && (
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
@@ -41,7 +41,19 @@ export default function WatchCard({ watch, isSelected, onSelect }: WatchCardProp
               stiffness: 260,
               damping: 20
             }}
-            className="absolute top-5 right-5 z-10 glass-button rounded-full p-2.5 shadow-lg"
+            className="absolute z-10 flex items-center justify-center"
+            style={{
+              top: '12px',
+              right: '12px',
+              width: '36px',
+              height: '36px',
+              borderRadius: '9999px',
+              background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.95) 0%, rgba(212, 175, 55, 0.85) 50%, rgba(192, 168, 48, 0.9) 100%)',
+              backdropFilter: 'blur(30px)',
+              WebkitBackdropFilter: 'blur(30px)',
+              boxShadow: '0 8px 24px 0 rgba(212, 175, 55, 0.4), 0 4px 12px 0 rgba(0, 0, 0, 0.3), inset 0 1px 0 0 rgba(248, 248, 240, 0.3)',
+              border: '1px solid rgba(248, 248, 240, 0.15)',
+            }}
           >
             <Check className="w-5 h-5 text-black" strokeWidth={3} />
             <motion.div
@@ -54,7 +66,7 @@ export default function WatchCard({ watch, isSelected, onSelect }: WatchCardProp
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="absolute inset-0 bg-gold rounded-full blur-md"
+              className="absolute inset-0 bg-gold rounded-full blur-md pointer-events-none"
             />
           </motion.div>
         )}

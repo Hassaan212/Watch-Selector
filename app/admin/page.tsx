@@ -228,21 +228,24 @@ export default function AdminDashboard() {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen liquid-glass-bg flex items-center justify-center p-4 relative overflow-hidden">
-        {/* Ambient Light Effects */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.03, 0.05, 0.03],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-gold blur-[120px]"
-          />
-        </div>
+      {/* Ambient Light Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.03, 0.05, 0.03],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-1/4 left-1/4 w-[800px] h-[800px] rounded-full blur-[180px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, rgba(212, 175, 55, 0.08) 40%, transparent 70%)'
+          }}
+        />
+      </div>
 
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
@@ -314,32 +317,38 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen liquid-glass-bg relative overflow-hidden">
-      {/* Ambient Light Effects */}
+      {/* Luxury Ambient Lighting - Refined Background Glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.02, 0.04, 0.02],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-gold blur-[150px]"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.015, 0.03, 0.015],
+            opacity: [0.05, 0.09, 0.05],
           }}
           transition={{
             duration: 12,
             repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
+            ease: "easeInOut"
           }}
-          className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-white blur-[150px]"
+          className="absolute top-[15%] right-[20%] w-[900px] h-[900px] rounded-full blur-[200px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.05) 40%, transparent 70%)'
+          }}
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.04, 0.07, 0.04],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3
+          }}
+          className="absolute bottom-[20%] left-[15%] w-[800px] h-[800px] rounded-full blur-[180px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(192, 192, 192, 0.08) 0%, rgba(192, 192, 192, 0.03) 45%, transparent 70%)'
+          }}
         />
       </div>
 

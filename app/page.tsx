@@ -144,32 +144,54 @@ export default function Home() {
   if (stage === 'round1') {
     return (
       <div className="min-h-screen liquid-glass-bg relative overflow-hidden">
-        {/* Ambient Light Effects */}
+        {/* Luxury Ambient Lighting - Champagne & Emerald Accents */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
             animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.02, 0.04, 0.02],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-gold blur-[150px]"
-          />
-          <motion.div
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.01, 0.03, 0.01],
+              scale: [1, 1.15, 1],
+              opacity: [0.06, 0.10, 0.06],
             }}
             transition={{
               duration: 12,
               repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2
+              ease: "easeInOut"
             }}
-            className="absolute bottom-0 right-1/4 w-[600px] h-[600px] rounded-full bg-white blur-[150px]"
+            className="absolute top-[-10%] left-[15%] w-[900px] h-[900px] rounded-full blur-[200px]"
+            style={{
+              background: 'radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 40%, transparent 70%)'
+            }}
+          />
+          <motion.div
+            animate={{
+              scale: [1, 1.25, 1],
+              opacity: [0.04, 0.08, 0.04],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 3
+            }}
+            className="absolute bottom-[-15%] right-[10%] w-[1000px] h-[800px] rounded-full blur-[180px]"
+            style={{
+              background: 'radial-gradient(ellipse, rgba(192, 192, 192, 0.08) 0%, rgba(192, 192, 192, 0.03) 40%, transparent 70%)'
+            }}
+          />
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.03, 0.06, 0.03],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 6
+            }}
+            className="absolute top-[40%] right-[5%] w-[600px] h-[600px] rounded-full blur-[150px]"
+            style={{
+              background: 'radial-gradient(circle, rgba(45, 90, 74, 0.12) 0%, rgba(45, 90, 74, 0.04) 50%, transparent 70%)'
+            }}
           />
         </div>
 
@@ -284,19 +306,38 @@ export default function Home() {
 
   return (
     <div className="min-h-screen liquid-glass-bg relative overflow-hidden">
-      {/* Ambient Light Effects */}
+      {/* Luxury Ambient Lighting - Premium Gold Glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{
             scale: [1, 1.3, 1],
-            opacity: [0.03, 0.06, 0.03],
+            opacity: [0.08, 0.14, 0.08],
           }}
           transition={{
-            duration: 8,
+            duration: 10,
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-gold blur-[180px]"
+          className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[1100px] h-[1100px] rounded-full blur-[220px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.08) 35%, transparent 65%)'
+          }}
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.04, 0.08, 0.04],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3
+          }}
+          className="absolute bottom-[10%] left-[20%] w-[700px] h-[700px] rounded-full blur-[180px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(30, 58, 95, 0.12) 0%, rgba(30, 58, 95, 0.04) 50%, transparent 70%)'
+          }}
         />
       </div>
 

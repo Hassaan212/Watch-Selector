@@ -40,32 +40,54 @@ export default function WelcomeScreen({ onContinue }: WelcomeScreenProps) {
 
   return (
     <div className="min-h-screen liquid-glass-bg flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Ambient Light Effects */}
+      {/* Luxury Ambient Lighting - Warm Champagne Glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.03, 0.05, 0.03],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-gold blur-[120px]"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.02, 0.04, 0.02],
+            scale: [1, 1.25, 1],
+            opacity: [0.08, 0.12, 0.08],
           }}
           transition={{
             duration: 10,
             repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
+            ease: "easeInOut"
           }}
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-white blur-[120px]"
+          className="absolute top-[20%] left-[25%] w-[800px] h-[800px] rounded-full blur-[180px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, rgba(212, 175, 55, 0.08) 40%, transparent 70%)'
+          }}
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.05, 0.09, 0.05],
+          }}
+          transition={{
+            duration: 13,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+          className="absolute bottom-[15%] right-[20%] w-[700px] h-[700px] rounded-full blur-[160px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(192, 192, 192, 0.12) 0%, rgba(192, 192, 192, 0.05) 45%, transparent 70%)'
+          }}
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.03, 0.06, 0.03],
+          }}
+          transition={{
+            duration: 16,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 5
+          }}
+          className="absolute top-[50%] right-[10%] w-[500px] h-[500px] rounded-full blur-[140px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(45, 90, 74, 0.1) 0%, rgba(45, 90, 74, 0.04) 50%, transparent 70%)'
+          }}
         />
       </div>
 

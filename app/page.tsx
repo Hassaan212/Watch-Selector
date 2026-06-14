@@ -219,37 +219,98 @@ export default function Home() {
               Select your 5 favorite luxury watches
             </p>
             
-            {/* Selection Counter */}
+            {/* Premium Selection Counter */}
             {selectedWatchIds.length > 0 && (
               <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="inline-block glass-panel px-8 py-4 rounded-[24px] border border-gold/30"
+                initial={{ scale: 0.8, opacity: 0, y: 10 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 200,
+                  damping: 20
+                }}
+                className="inline-block relative"
               >
-                <p className="text-gold font-semibold text-lg">
-                  Selected {selectedWatchIds.length}/5
-                </p>
+                <div 
+                  className="glass-panel px-10 py-5 rounded-[28px] border-2 relative overflow-hidden"
+                  style={{
+                    borderColor: 'rgba(212, 175, 55, 0.4)',
+                    boxShadow: '0 16px 48px 0 rgba(0, 0, 0, 0.6), 0 8px 24px 0 rgba(212, 175, 55, 0.2), inset 0 2px 0 0 rgba(248, 248, 240, 0.1)',
+                    background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%)'
+                  }}
+                >
+                  {/* Subtle shimmer effect */}
+                  <motion.div
+                    animate={{
+                      x: ['-200%', '200%'],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear",
+                      repeatDelay: 1
+                    }}
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: 'linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.1) 50%, transparent 100%)',
+                      width: '50%'
+                    }}
+                  />
+                  
+                  <div className="flex items-center gap-4 relative z-10">
+                    <div className="flex items-center gap-2">
+                      {[...Array(5)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{
+                            delay: i * 0.05,
+                            type: 'spring',
+                            stiffness: 300,
+                            damping: 20
+                          }}
+                          className="w-2.5 h-2.5 rounded-full"
+                          style={{
+                            background: i < selectedWatchIds.length 
+                              ? 'linear-gradient(135deg, rgba(212, 175, 55, 1) 0%, rgba(192, 168, 48, 1) 100%)'
+                              : 'rgba(255, 255, 255, 0.15)',
+                            boxShadow: i < selectedWatchIds.length 
+                              ? '0 0 12px rgba(212, 175, 55, 0.6), inset 0 1px 0 rgba(248, 248, 240, 0.3)'
+                              : 'inset 0 1px 2px rgba(0, 0, 0, 0.3)'
+                          }}
+                        />
+                      ))}
+                    </div>
+                    
+                    <div className="h-6 w-px bg-gradient-to-b from-transparent via-gold/40 to-transparent" />
+                    
+                    <p className="text-gold font-bold text-xl tracking-tight">
+                      {selectedWatchIds.length}<span className="text-white/40 font-normal text-base ml-1">/5</span>
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             )}
           </div>
         </motion.header>
 
-        {/* Watches Grid */}
+        {/* Premium Watches Grid */}
         <main className="max-w-7xl mx-auto px-4 pb-40 relative z-10">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
           >
             {watches.map((watch, index) => (
               <motion.div
                 key={watch.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ 
                   delay: 0.1 * index,
-                  duration: 0.6,
+                  duration: 0.7,
                   ease: [0.4, 0, 0.2, 1]
                 }}
               >
@@ -374,28 +435,81 @@ export default function Home() {
           
           {finalWinnerId && (
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="inline-block glass-panel px-8 py-4 rounded-[24px] border border-gold/30"
+              initial={{ scale: 0.8, opacity: 0, y: 10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              transition={{
+                type: 'spring',
+                stiffness: 200,
+                damping: 20
+              }}
+              className="inline-block relative"
             >
-              <div className="flex items-center gap-2">
-                <Check className="w-5 h-5 text-gold" strokeWidth={2.5} />
-                <p className="text-gold font-semibold text-lg">
-                  Ultimate Favorite Selected
-                </p>
+              <div 
+                className="glass-panel px-10 py-5 rounded-[28px] border-2 relative overflow-hidden"
+                style={{
+                  borderColor: 'rgba(212, 175, 55, 0.5)',
+                  boxShadow: '0 16px 48px 0 rgba(0, 0, 0, 0.6), 0 8px 24px 0 rgba(212, 175, 55, 0.25), inset 0 2px 0 0 rgba(248, 248, 240, 0.12)',
+                  background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'
+                }}
+              >
+                {/* Shimmer effect */}
+                <motion.div
+                  animate={{
+                    x: ['-200%', '200%'],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
+                    repeatDelay: 1
+                  }}
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.15) 50%, transparent 100%)',
+                    width: '50%'
+                  }}
+                />
+                
+                <div className="flex items-center gap-4 relative z-10">
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      rotate: [0, 5, -5, 0]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    <Check 
+                      className="w-6 h-6 text-gold" 
+                      strokeWidth={3}
+                      style={{
+                        filter: 'drop-shadow(0 0 8px rgba(212, 175, 55, 0.6))'
+                      }}
+                    />
+                  </motion.div>
+                  
+                  <div className="h-6 w-px bg-gradient-to-b from-transparent via-gold/40 to-transparent" />
+                  
+                  <p className="text-gold font-bold text-lg tracking-tight">
+                    Ultimate Favorite Selected
+                  </p>
+                </div>
               </div>
             </motion.div>
           )}
         </div>
       </motion.header>
 
-      {/* Selected 5 Watches Grid */}
+      {/* Premium Selected Watches Grid */}
       <main className="max-w-7xl mx-auto px-4 pb-40 relative z-10">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
         >
           {selectedWatches.map((watch, index) => (
             <motion.div
@@ -404,7 +518,7 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ 
                 delay: 0.1 * index,
-                duration: 0.6,
+                duration: 0.7,
                 ease: [0.4, 0, 0.2, 1]
               }}
             >

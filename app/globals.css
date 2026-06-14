@@ -4,81 +4,85 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   
-  /* Luxury Swiss Watch Color Palette */
-  --color-obsidian: #0a0a0a;
-  --color-charcoal: #1a1a1a;
-  --color-charcoal-light: #252525;
-  --color-champagne: #d4af37;
-  --color-warm-silver: #c0c0c0;
-  --color-ivory: #f8f8f0;
-  --color-emerald: #2d5a4a;
-  --color-sapphire: #1e3a5f;
+  /* Refined Luxury Watch Boutique Color Palette */
+  --color-bg-deep: #111318;
+  --color-bg-mid: #171A21;
+  --color-bg-elevated: #1E222B;
+  
+  --color-champagne: #D4AF37;
+  --color-champagne-light: #E6D39C;
+  --color-champagne-lighter: #F1E4B3;
+  
+  --color-emerald-dark: #153126;
+  --color-emerald: #214436;
+  
+  --color-text-primary: #F5F5F2;
+  --color-text-secondary: #CFCFC7;
+  --color-text-tertiary: #9A9A93;
 }
 
 body {
   @apply bg-black text-white antialiased;
 }
 
-/* Luxury Swiss Watch Background - Layered Depth */
+/* Luxury Watch Boutique Background - Refined Atmosphere */
 .liquid-glass-bg {
   position: relative;
   background: 
-    /* Deep obsidian base with subtle charcoal variations */
-    radial-gradient(ellipse at top, var(--color-charcoal) 0%, var(--color-obsidian) 50%),
-    radial-gradient(ellipse at bottom, var(--color-charcoal-light) 0%, var(--color-obsidian) 50%),
-    linear-gradient(135deg, var(--color-obsidian) 0%, var(--color-charcoal) 50%, var(--color-obsidian) 100%);
+    /* Graphite and charcoal layers */
+    radial-gradient(ellipse at top, var(--color-bg-mid) 0%, var(--color-bg-deep) 50%),
+    radial-gradient(ellipse at bottom, var(--color-bg-elevated) 0%, var(--color-bg-deep) 50%),
+    linear-gradient(135deg, var(--color-bg-deep) 0%, var(--color-bg-mid) 50%, var(--color-bg-deep) 100%);
   background-attachment: fixed;
 }
 
-/* Ambient Luxury Lighting - Behind glass elements */
+/* Refined Ambient Lighting - Watch Boutique Atmosphere */
 .liquid-glass-bg::before {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   background: 
-    /* Large champagne glow - upper left */
-    radial-gradient(ellipse 1200px 800px at 10% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
-    /* Warm silver accent - right side */
-    radial-gradient(ellipse 1000px 1000px at 90% 50%, rgba(192, 192, 192, 0.04) 0%, transparent 55%),
-    /* Subtle emerald accent - bottom left */
-    radial-gradient(ellipse 800px 600px at 15% 85%, rgba(45, 90, 74, 0.06) 0%, transparent 50%),
-    /* Sapphire highlight - top right */
-    radial-gradient(ellipse 600px 800px at 85% 15%, rgba(30, 58, 95, 0.05) 0%, transparent 55%);
-  opacity: 0.7;
+    /* Subtle champagne warmth - upper areas (15%) */
+    radial-gradient(ellipse 1400px 900px at 20% 10%, rgba(214, 175, 55, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 1100px 800px at 80% 15%, rgba(230, 211, 156, 0.04) 0%, transparent 60%),
+    /* Soft emerald undertones - lower areas (10%) */
+    radial-gradient(ellipse 1000px 700px at 15% 90%, rgba(33, 68, 54, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 900px 600px at 85% 85%, rgba(21, 49, 38, 0.06) 0%, transparent 60%);
+  opacity: 0.75;
   z-index: 0;
 }
 
-/* Depth layer for glass panels */
+/* Depth layer for separation */
 .liquid-glass-bg::after {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   background: 
-    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 60%);
+    radial-gradient(circle at 50% 50%, rgba(214, 175, 55, 0.02) 0%, transparent 65%);
   z-index: 1;
 }
 
-/* Luxury Glass Panel - Swiss Watch Boutique Aesthetic */
+/* Luxury Glass Panel - Watch Boutique Aesthetic */
 .glass-panel {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.04) 0%,
-    rgba(255, 255, 255, 0.02) 100%
+    rgba(245, 245, 242, 0.045) 0%,
+    rgba(207, 207, 199, 0.025) 100%
   );
-  backdrop-filter: blur(60px) saturate(140%);
-  -webkit-backdrop-filter: blur(60px) saturate(140%);
-  border: 1px solid rgba(192, 192, 192, 0.08);
+  backdrop-filter: blur(60px) saturate(130%);
+  -webkit-backdrop-filter: blur(60px) saturate(130%);
+  border: 1px solid rgba(207, 207, 199, 0.09);
   box-shadow: 
-    0 12px 48px 0 rgba(0, 0, 0, 0.6),
-    0 4px 12px 0 rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 0 rgba(248, 248, 240, 0.06),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.3);
+    0 12px 48px 0 rgba(0, 0, 0, 0.65),
+    0 4px 12px 0 rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 0 rgba(245, 245, 242, 0.07),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.35);
   position: relative;
 }
 
-/* Subtle inner glow for depth */
+/* Warm inner glow for boutique ambiance */
 .glass-panel::before {
   content: '';
   position: absolute;
@@ -87,19 +91,19 @@ body {
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(212, 175, 55, 0.1) 0%,
+    rgba(214, 175, 55, 0.12) 0%,
     transparent 30%,
     transparent 70%,
-    rgba(192, 192, 192, 0.08) 100%
+    rgba(207, 207, 199, 0.08) 100%
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
-/* Glass Panel Hover - Refined Luxury Interaction */
+/* Glass Panel Hover - Refined Boutique Interaction */
 .glass-panel-hover {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -107,16 +111,16 @@ body {
 .glass-panel-hover:hover {
   background: linear-gradient(
     135deg,
-    rgba(212, 175, 55, 0.06) 0%,
-    rgba(255, 255, 255, 0.03) 100%
+    rgba(214, 175, 55, 0.07) 0%,
+    rgba(245, 245, 242, 0.035) 100%
   );
-  border-color: rgba(212, 175, 55, 0.25);
+  border-color: rgba(214, 175, 55, 0.28);
   box-shadow: 
-    0 16px 56px 0 rgba(0, 0, 0, 0.7),
-    0 8px 24px 0 rgba(212, 175, 55, 0.15),
-    inset 0 1px 0 0 rgba(248, 248, 240, 0.1),
+    0 16px 56px 0 rgba(0, 0, 0, 0.75),
+    0 8px 24px 0 rgba(214, 175, 55, 0.18),
+    inset 0 1px 0 0 rgba(245, 245, 242, 0.11),
     inset 0 -1px 0 0 rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(212, 175, 55, 0.15);
+    0 0 0 1px rgba(214, 175, 55, 0.18);
   transform: translateY(-2px);
 }
 
@@ -124,49 +128,49 @@ body {
 .glass-panel-selected {
   background: linear-gradient(
     135deg,
-    rgba(212, 175, 55, 0.12) 0%,
-    rgba(212, 175, 55, 0.08) 100%
+    rgba(214, 175, 55, 0.14) 0%,
+    rgba(214, 175, 55, 0.09) 100%
   );
-  border: 1.5px solid rgba(212, 175, 55, 0.5);
+  border: 1.5px solid rgba(214, 175, 55, 0.55);
   box-shadow: 
-    0 20px 60px 0 rgba(212, 175, 55, 0.25),
-    0 8px 24px 0 rgba(0, 0, 0, 0.6),
-    inset 0 2px 0 0 rgba(248, 248, 240, 0.15),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.3),
-    0 0 40px 0 rgba(212, 175, 55, 0.3),
-    0 0 0 1px rgba(212, 175, 55, 0.3);
+    0 20px 60px 0 rgba(214, 175, 55, 0.28),
+    0 8px 24px 0 rgba(0, 0, 0, 0.65),
+    inset 0 2px 0 0 rgba(245, 245, 242, 0.16),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.35),
+    0 0 40px 0 rgba(214, 175, 55, 0.35),
+    0 0 0 1px rgba(214, 175, 55, 0.32);
 }
 
-/* Luxury Champagne Gold Accent */
+/* Refined Champagne Gold Accent */
 .text-gold {
-  color: #d4af37;
-  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  color: #D4AF37;
+  text-shadow: 0 0 20px rgba(214, 175, 55, 0.35);
 }
 
 .bg-gold {
-  background-color: #d4af37;
+  background-color: #D4AF37;
 }
 
 .border-gold {
-  border-color: rgba(212, 175, 55, 0.5);
+  border-color: rgba(214, 175, 55, 0.55);
 }
 
 /* Premium Glass Button - Champagne Gold */
 .glass-button {
   background: linear-gradient(
     135deg, 
-    rgba(212, 175, 55, 0.95) 0%,
-    rgba(212, 175, 55, 0.85) 50%,
-    rgba(192, 168, 48, 0.9) 100%
+    rgba(214, 175, 55, 0.95) 0%,
+    rgba(214, 175, 55, 0.88) 50%,
+    rgba(200, 165, 50, 0.92) 100%
   );
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   box-shadow: 
-    0 12px 40px 0 rgba(212, 175, 55, 0.4),
-    0 4px 12px 0 rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 0 rgba(248, 248, 240, 0.3),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(248, 248, 240, 0.15);
+    0 12px 40px 0 rgba(214, 175, 55, 0.42),
+    0 4px 12px 0 rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 0 rgba(245, 245, 242, 0.32),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(245, 245, 242, 0.18);
   position: relative;
   overflow: hidden;
 }
@@ -182,7 +186,7 @@ body {
   background: linear-gradient(
     45deg,
     transparent 30%,
-    rgba(248, 248, 240, 0.15) 50%,
+    rgba(245, 245, 242, 0.16) 50%,
     transparent 70%
   );
   transform: rotate(45deg);
@@ -197,16 +201,16 @@ body {
 .glass-button:hover {
   background: linear-gradient(
     135deg,
-    rgba(212, 175, 55, 1) 0%,
-    rgba(212, 175, 55, 0.95) 50%,
-    rgba(192, 168, 48, 1) 100%
+    rgba(214, 175, 55, 1) 0%,
+    rgba(214, 175, 55, 0.96) 50%,
+    rgba(200, 165, 50, 1) 100%
   );
   box-shadow: 
-    0 16px 48px 0 rgba(212, 175, 55, 0.5),
-    0 8px 20px 0 rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 0 rgba(248, 248, 240, 0.4),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.3),
-    0 0 30px rgba(212, 175, 55, 0.4);
+    0 16px 48px 0 rgba(214, 175, 55, 0.52),
+    0 8px 20px 0 rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 0 rgba(245, 245, 242, 0.42),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.32),
+    0 0 30px rgba(214, 175, 55, 0.45);
   transform: translateY(-1px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -214,42 +218,42 @@ body {
 .glass-button:active {
   transform: translateY(0);
   box-shadow: 
-    0 8px 24px 0 rgba(212, 175, 55, 0.4),
-    0 4px 12px 0 rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 0 rgba(248, 248, 240, 0.3);
+    0 8px 24px 0 rgba(214, 175, 55, 0.42),
+    0 4px 12px 0 rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 0 rgba(245, 245, 242, 0.32);
 }
 
-/* Luxury Glass Input - Refined */
+/* Refined Glass Input */
 .glass-input {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.03) 0%,
-    rgba(255, 255, 255, 0.02) 100%
+    rgba(245, 245, 242, 0.032) 0%,
+    rgba(207, 207, 199, 0.022) 100%
   );
   backdrop-filter: blur(60px);
   -webkit-backdrop-filter: blur(60px);
-  border: 1px solid rgba(192, 192, 192, 0.12);
+  border: 1px solid rgba(207, 207, 199, 0.13);
   box-shadow: 
-    inset 0 2px 8px 0 rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 0 rgba(0, 0, 0, 0.2),
-    0 1px 0 0 rgba(248, 248, 240, 0.05);
+    inset 0 2px 8px 0 rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 0 rgba(0, 0, 0, 0.22),
+    0 1px 0 0 rgba(245, 245, 242, 0.06);
 }
 
 .glass-input:focus {
   background: linear-gradient(
     135deg,
-    rgba(212, 175, 55, 0.05) 0%,
-    rgba(255, 255, 255, 0.04) 100%
+    rgba(214, 175, 55, 0.055) 0%,
+    rgba(245, 245, 242, 0.042) 100%
   );
-  border-color: rgba(212, 175, 55, 0.5);
+  border-color: rgba(214, 175, 55, 0.52);
   box-shadow: 
-    inset 0 2px 8px 0 rgba(0, 0, 0, 0.3),
-    0 0 0 2px rgba(212, 175, 55, 0.15),
-    0 0 20px rgba(212, 175, 55, 0.2);
+    inset 0 2px 8px 0 rgba(0, 0, 0, 0.32),
+    0 0 0 2px rgba(214, 175, 55, 0.16),
+    0 0 20px rgba(214, 175, 55, 0.22);
   outline: none;
 }
 
-/* Luxury Scrollbar - Swiss Watch Inspired */
+/* Refined Scrollbar - Watch Boutique Inspired */
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
@@ -258,41 +262,41 @@ body {
 ::-webkit-scrollbar-track {
   background: linear-gradient(
     to bottom,
-    rgba(26, 26, 26, 0.6) 0%,
-    rgba(10, 10, 10, 0.8) 100%
+    rgba(30, 34, 43, 0.65) 0%,
+    rgba(17, 19, 24, 0.85) 100%
   );
-  border-left: 1px solid rgba(192, 192, 192, 0.08);
+  border-left: 1px solid rgba(207, 207, 199, 0.09);
 }
 
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(
     to bottom,
-    rgba(212, 175, 55, 0.3) 0%,
-    rgba(192, 192, 192, 0.2) 100%
+    rgba(214, 175, 55, 0.32) 0%,
+    rgba(207, 207, 199, 0.22) 100%
   );
   border-radius: 6px;
-  border: 2px solid rgba(10, 10, 10, 0.4);
+  border: 2px solid rgba(17, 19, 24, 0.45);
   box-shadow: 
-    inset 0 1px 0 0 rgba(248, 248, 240, 0.1),
-    0 0 10px rgba(212, 175, 55, 0.1);
+    inset 0 1px 0 0 rgba(245, 245, 242, 0.12),
+    0 0 10px rgba(214, 175, 55, 0.12);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(
     to bottom,
-    rgba(212, 175, 55, 0.5) 0%,
-    rgba(192, 192, 192, 0.3) 100%
+    rgba(214, 175, 55, 0.52) 0%,
+    rgba(207, 207, 199, 0.32) 100%
   );
   box-shadow: 
-    inset 0 1px 0 0 rgba(248, 248, 240, 0.15),
-    0 0 15px rgba(212, 175, 55, 0.3);
+    inset 0 1px 0 0 rgba(245, 245, 242, 0.16),
+    0 0 15px rgba(214, 175, 55, 0.32);
 }
 
 ::-webkit-scrollbar-thumb:active {
   background: linear-gradient(
     to bottom,
-    rgba(212, 175, 55, 0.6) 0%,
-    rgba(192, 192, 192, 0.4) 100%
+    rgba(214, 175, 55, 0.62) 0%,
+    rgba(207, 207, 199, 0.42) 100%
   );
 }
 
@@ -301,13 +305,13 @@ body {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Luxury text selections */
+/* Refined text selections */
 ::selection {
-  background-color: rgba(212, 175, 55, 0.3);
-  color: rgba(248, 248, 240, 1);
+  background-color: rgba(214, 175, 55, 0.32);
+  color: rgba(245, 245, 242, 1);
 }
 
 ::-moz-selection {
-  background-color: rgba(212, 175, 55, 0.3);
-  color: rgba(248, 248, 240, 1);
+  background-color: rgba(214, 175, 55, 0.32);
+  color: rgba(245, 245, 242, 1);
 }

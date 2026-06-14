@@ -16,6 +16,7 @@ import {
   Loader2,
   Download,
 } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import WatchManagement from '@/components/admin/WatchManagement';
 import StatsCard from '@/components/admin/StatsCard';
 import SubmissionsList from '@/components/admin/SubmissionsList';
@@ -228,6 +229,16 @@ export default function AdminDashboard() {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen liquid-glass-bg flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Theme Toggle - Top Right */}
+      <motion.div
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+        className="fixed top-8 right-8 z-50"
+      >
+        <ThemeToggle />
+      </motion.div>
+
       {/* Ambient Light Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -302,6 +313,16 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen liquid-glass-bg flex items-center justify-center relative overflow-hidden">
+        {/* Theme Toggle - Top Right */}
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="fixed top-8 right-8 z-50"
+        >
+          <ThemeToggle />
+        </motion.div>
+
         {/* Ambient loading glow */}
         <motion.div
           animate={{
@@ -345,6 +366,16 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen liquid-glass-bg relative overflow-hidden">
+      {/* Theme Toggle - Top Right */}
+      <motion.div
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+        className="fixed top-8 right-8 z-50"
+      >
+        <ThemeToggle />
+      </motion.div>
+
       {/* Luxury Ambient Lighting - Refined Background Glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div

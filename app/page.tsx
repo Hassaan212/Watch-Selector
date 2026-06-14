@@ -8,6 +8,7 @@ import { getSessionId, hasSubmitted, markAsSubmitted } from '@/lib/sessionId';
 import WatchCard from '@/components/WatchCard';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import SuccessScreen from '@/components/SuccessScreen';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { ArrowRight, Loader2, Trophy, Sparkles, Check } from 'lucide-react';
 
 type VotingStage = 'welcome' | 'round1' | 'round2' | 'success';
@@ -122,6 +123,16 @@ export default function Home() {
   if (loading) {
     return (
       <div className="min-h-screen liquid-glass-bg flex items-center justify-center relative overflow-hidden">
+        {/* Theme Toggle - Top Right */}
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="fixed top-8 right-8 z-50"
+        >
+          <ThemeToggle />
+        </motion.div>
+
         {/* Ambient loading glow */}
         <motion.div
           animate={{
@@ -172,6 +183,16 @@ export default function Home() {
   if (stage === 'round1') {
     return (
       <div className="min-h-screen liquid-glass-bg relative overflow-hidden">
+        {/* Theme Toggle - Top Right */}
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="fixed top-8 right-8 z-50"
+        >
+          <ThemeToggle />
+        </motion.div>
+
         {/* Luxury Ambient Lighting - Champagne & Emerald Accents */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
@@ -395,6 +416,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen liquid-glass-bg relative overflow-hidden">
+      {/* Theme Toggle - Top Right */}
+      <motion.div
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+        className="fixed top-8 right-8 z-50"
+      >
+        <ThemeToggle />
+      </motion.div>
+
       {/* Luxury Ambient Lighting - Premium Gold Glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div

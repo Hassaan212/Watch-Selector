@@ -2,10 +2,21 @@
 
 import { motion } from 'framer-motion';
 import { CheckCircle, Sparkles } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export default function SuccessScreen() {
   return (
     <div className="min-h-screen liquid-glass-bg flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Theme Toggle - Top Right */}
+      <motion.div
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+        className="fixed top-8 right-8 z-50"
+      >
+        <ThemeToggle />
+      </motion.div>
+
       {/* Luxury Ambient Lighting - Celebratory Gold Radiance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div

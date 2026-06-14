@@ -3,8 +3,14 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  
-  /* Refined Luxury Watch Boutique Color Palette */
+}
+
+/* ============================================
+   THEME SYSTEM - Midnight Gallery (Default)
+   ============================================ */
+:root,
+.midnight {
+  /* Refined Luxury Watch Boutique Color Palette - Dark */
   --color-bg-deep: #111318;
   --color-bg-mid: #171A21;
   --color-bg-elevated: #1E222B;
@@ -19,10 +25,61 @@
   --color-text-primary: #F5F5F2;
   --color-text-secondary: #CFCFC7;
   --color-text-tertiary: #9A9A93;
+  
+  /* Glass panel opacity values */
+  --glass-bg-start: rgba(245, 245, 242, 0.045);
+  --glass-bg-end: rgba(207, 207, 199, 0.025);
+  --glass-border: rgba(207, 207, 199, 0.09);
+  --glass-shadow-main: rgba(0, 0, 0, 0.65);
+  --glass-shadow-secondary: rgba(0, 0, 0, 0.45);
+  
+  /* Ambient lighting */
+  --ambient-champagne-1: rgba(214, 175, 55, 0.06);
+  --ambient-champagne-2: rgba(230, 211, 156, 0.04);
+  --ambient-emerald-1: rgba(33, 68, 54, 0.08);
+  --ambient-emerald-2: rgba(21, 49, 38, 0.06);
+}
+
+/* ============================================
+   THEME SYSTEM - Champagne Gallery (Light)
+   ============================================ */
+.champagne {
+  /* Luxury Light Theme - Boutique Daytime Atmosphere */
+  --color-bg-deep: #F8F6F1;
+  --color-bg-mid: #F2EDE3;
+  --color-bg-elevated: #FFFFFF;
+  
+  --color-champagne: #B8941E;
+  --color-champagne-light: #D4AF37;
+  --color-champagne-lighter: #E6D39C;
+  
+  --color-emerald-dark: #2A5A45;
+  --color-emerald: #3A7A5F;
+  
+  --color-text-primary: #1F1F1F;
+  --color-text-secondary: #4A4A4A;
+  --color-text-tertiary: #6A6A6A;
+  
+  /* Glass panel opacity values - light theme */
+  --glass-bg-start: rgba(255, 255, 255, 0.75);
+  --glass-bg-end: rgba(248, 246, 241, 0.55);
+  --glass-border: rgba(184, 148, 30, 0.18);
+  --glass-shadow-main: rgba(0, 0, 0, 0.12);
+  --glass-shadow-secondary: rgba(0, 0, 0, 0.06);
+  
+  /* Ambient lighting - light theme */
+  --ambient-champagne-1: rgba(184, 148, 30, 0.04);
+  --ambient-champagne-2: rgba(212, 175, 55, 0.03);
+  --ambient-emerald-1: rgba(58, 122, 95, 0.05);
+  --ambient-emerald-2: rgba(42, 90, 69, 0.03);
 }
 
 body {
-  @apply bg-black text-white antialiased;
+  @apply antialiased;
+  background-color: var(--color-bg-deep);
+  color: var(--color-text-primary);
+  transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Luxury Watch Boutique Background - Refined Atmosphere */
@@ -34,6 +91,7 @@ body {
     radial-gradient(ellipse at bottom, var(--color-bg-elevated) 0%, var(--color-bg-deep) 50%),
     linear-gradient(135deg, var(--color-bg-deep) 0%, var(--color-bg-mid) 50%, var(--color-bg-deep) 100%);
   background-attachment: fixed;
+  transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Refined Ambient Lighting - Watch Boutique Atmosphere */
@@ -44,13 +102,14 @@ body {
   pointer-events: none;
   background: 
     /* Subtle champagne warmth - upper areas (15%) */
-    radial-gradient(ellipse 1400px 900px at 20% 10%, rgba(214, 175, 55, 0.06) 0%, transparent 55%),
-    radial-gradient(ellipse 1100px 800px at 80% 15%, rgba(230, 211, 156, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 1400px 900px at 20% 10%, var(--ambient-champagne-1) 0%, transparent 55%),
+    radial-gradient(ellipse 1100px 800px at 80% 15%, var(--ambient-champagne-2) 0%, transparent 60%),
     /* Soft emerald undertones - lower areas (10%) */
-    radial-gradient(ellipse 1000px 700px at 15% 90%, rgba(33, 68, 54, 0.08) 0%, transparent 55%),
-    radial-gradient(ellipse 900px 600px at 85% 85%, rgba(21, 49, 38, 0.06) 0%, transparent 60%);
+    radial-gradient(ellipse 1000px 700px at 15% 90%, var(--ambient-emerald-1) 0%, transparent 55%),
+    radial-gradient(ellipse 900px 600px at 85% 85%, var(--ambient-emerald-2) 0%, transparent 60%);
   opacity: 0.75;
   z-index: 0;
+  transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Depth layer for separation */
@@ -68,18 +127,19 @@ body {
 .glass-panel {
   background: linear-gradient(
     135deg,
-    rgba(245, 245, 242, 0.045) 0%,
-    rgba(207, 207, 199, 0.025) 100%
+    var(--glass-bg-start) 0%,
+    var(--glass-bg-end) 100%
   );
   backdrop-filter: blur(60px) saturate(130%);
   -webkit-backdrop-filter: blur(60px) saturate(130%);
-  border: 1px solid rgba(207, 207, 199, 0.09);
+  border: 1px solid var(--glass-border);
   box-shadow: 
-    0 12px 48px 0 rgba(0, 0, 0, 0.65),
-    0 4px 12px 0 rgba(0, 0, 0, 0.45),
+    0 12px 48px 0 var(--glass-shadow-main),
+    0 4px 12px 0 var(--glass-shadow-secondary),
     inset 0 1px 0 0 rgba(245, 245, 242, 0.07),
     inset 0 -1px 0 0 rgba(0, 0, 0, 0.35);
   position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Warm inner glow for boutique ambiance */
@@ -314,4 +374,358 @@ body {
 ::-moz-selection {
   background-color: rgba(214, 175, 55, 0.32);
   color: rgba(245, 245, 242, 1);
+}
+
+/* ============================================
+   TEXT COLOR UTILITIES - Theme Aware
+   ============================================ */
+.text-primary {
+  color: var(--color-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-text-tertiary);
+}
+
+/* Override Tailwind's text-white for theme compatibility */
+.midnight .text-white,
+.midnight .text-white\/60,
+.midnight .text-white\/50,
+.midnight .text-white\/40,
+.midnight .text-white\/30 {
+  /* Keep white in dark theme */
+  color: inherit;
+}
+
+.champagne .text-white {
+  color: var(--color-text-primary) !important;
+}
+
+.champagne .text-white\/60 {
+  color: var(--color-text-secondary) !important;
+}
+
+.champagne .text-white\/50 {
+  color: var(--color-text-tertiary) !important;
+}
+
+.champagne .text-white\/40 {
+  color: rgba(106, 106, 106, 0.75) !important;
+}
+
+.champagne .text-white\/30 {
+  color: rgba(106, 106, 106, 0.6) !important;
+}
+
+/* Input text colors for light theme */
+.champagne .glass-input {
+  color: var(--color-text-primary);
+}
+
+.champagne .glass-input::placeholder {
+  color: var(--color-text-tertiary) !important;
+  opacity: 0.7;
+}
+
+/* Button text should remain contrasting in light theme */
+.champagne .glass-button {
+  background: linear-gradient(
+    135deg, 
+    rgba(184, 148, 30, 0.95) 0%,
+    rgba(184, 148, 30, 0.88) 50%,
+    rgba(168, 138, 28, 0.92) 100%
+  );
+  color: #FFFFFF;
+  box-shadow: 
+    0 12px 40px 0 rgba(184, 148, 30, 0.35),
+    0 4px 12px 0 rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+.champagne .glass-button:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(184, 148, 30, 1) 0%,
+    rgba(184, 148, 30, 0.96) 50%,
+    rgba(168, 138, 28, 1) 100%
+  );
+  box-shadow: 
+    0 16px 48px 0 rgba(184, 148, 30, 0.45),
+    0 8px 20px 0 rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(184, 148, 30, 0.4);
+}
+
+/* Gold text should have good contrast in light theme */
+.champagne .text-gold {
+  color: #8B7419;
+  text-shadow: 0 0 12px rgba(139, 116, 25, 0.2);
+}
+
+/* Glass panels in light theme need better contrast */
+.champagne .glass-panel {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(248, 246, 241, 0.6) 100%
+  );
+  border: 1px solid rgba(184, 148, 30, 0.2);
+  box-shadow: 
+    0 12px 48px 0 rgba(0, 0, 0, 0.08),
+    0 4px 12px 0 rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.05);
+}
+
+.champagne .glass-panel-hover:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(184, 148, 30, 0.12) 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
+  border-color: rgba(184, 148, 30, 0.35);
+  box-shadow: 
+    0 16px 56px 0 rgba(0, 0, 0, 0.12),
+    0 8px 24px 0 rgba(184, 148, 30, 0.15),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(184, 148, 30, 0.2);
+}
+
+.champagne .glass-panel-selected {
+  background: linear-gradient(
+    135deg,
+    rgba(184, 148, 30, 0.18) 0%,
+    rgba(184, 148, 30, 0.12) 100%
+  );
+  border: 1.5px solid rgba(184, 148, 30, 0.6);
+  box-shadow: 
+    0 20px 60px 0 rgba(184, 148, 30, 0.25),
+    0 8px 24px 0 rgba(0, 0, 0, 0.12),
+    inset 0 2px 0 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.08),
+    0 0 40px 0 rgba(184, 148, 30, 0.3),
+    0 0 0 1px rgba(184, 148, 30, 0.35);
+}
+
+/* Scrollbar in light theme */
+.champagne ::-webkit-scrollbar-track {
+  background: linear-gradient(
+    to bottom,
+    rgba(242, 237, 227, 0.65) 0%,
+    rgba(248, 246, 241, 0.85) 100%
+  );
+  border-left: 1px solid rgba(184, 148, 30, 0.12);
+}
+
+.champagne ::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to bottom,
+    rgba(184, 148, 30, 0.5) 0%,
+    rgba(184, 148, 30, 0.35) 100%
+  );
+  border-radius: 6px;
+  border: 2px solid rgba(248, 246, 241, 0.5);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+    0 0 10px rgba(184, 148, 30, 0.15);
+}
+
+.champagne ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    to bottom,
+    rgba(184, 148, 30, 0.7) 0%,
+    rgba(184, 148, 30, 0.5) 100%
+  );
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+    0 0 15px rgba(184, 148, 30, 0.3);
+}
+
+.champagne ::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(
+    to bottom,
+    rgba(184, 148, 30, 0.85) 0%,
+    rgba(184, 148, 30, 0.65) 100%
+  );
+}
+
+/* ============================================
+   PREMIUM THEME TOGGLE - Glass Pill Style
+   ============================================ */
+.theme-toggle-pill {
+  position: relative;
+  width: 100px;
+  height: 44px;
+  padding: 4px;
+  background: linear-gradient(
+    135deg,
+    var(--glass-bg-start) 0%,
+    var(--glass-bg-end) 100%
+  );
+  backdrop-filter: blur(40px) saturate(130%);
+  -webkit-backdrop-filter: blur(40px) saturate(130%);
+  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+  box-shadow: 
+    0 8px 32px 0 var(--glass-shadow-main),
+    0 2px 8px 0 var(--glass-shadow-secondary),
+    inset 0 1px 0 0 rgba(245, 245, 242, 0.06);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.theme-toggle-pill:hover {
+  border-color: rgba(214, 175, 55, 0.32);
+  box-shadow: 
+    0 12px 40px 0 rgba(214, 175, 55, 0.18),
+    0 4px 12px 0 var(--glass-shadow-secondary),
+    inset 0 1px 0 0 rgba(245, 245, 242, 0.08),
+    0 0 0 1px rgba(214, 175, 55, 0.12);
+}
+
+.theme-toggle-pill:active {
+  transform: scale(0.98);
+}
+
+/* Animated slider inside the pill */
+.theme-toggle-slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 44px;
+  height: 36px;
+  background: linear-gradient(
+    135deg,
+    rgba(214, 175, 55, 0.95) 0%,
+    rgba(214, 175, 55, 0.88) 50%,
+    rgba(200, 165, 50, 0.92) 100%
+  );
+  border-radius: 18px;
+  box-shadow: 
+    0 8px 24px 0 rgba(214, 175, 55, 0.42),
+    0 2px 6px 0 rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 0 rgba(245, 245, 242, 0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Theme toggle slider in light theme */
+.champagne .theme-toggle-slider {
+  background: linear-gradient(
+    135deg,
+    rgba(184, 148, 30, 0.95) 0%,
+    rgba(184, 148, 30, 0.88) 50%,
+    rgba(168, 138, 28, 0.92) 100%
+  );
+  box-shadow: 
+    0 8px 24px 0 rgba(184, 148, 30, 0.35),
+    0 2px 6px 0 rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Labels for both theme options */
+.theme-toggle-labels {
+  position: absolute;
+  inset: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  z-index: 1;
+}
+
+.theme-toggle-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  opacity: 0.4;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle-label.active {
+  opacity: 0;
+}
+
+/* Theme toggle pill in light theme */
+.champagne .theme-toggle-pill {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(248, 246, 241, 0.5) 100%
+  );
+  border: 1px solid rgba(184, 148, 30, 0.25);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.1),
+    0 2px 8px 0 rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+}
+
+.champagne .theme-toggle-pill:hover {
+  border-color: rgba(184, 148, 30, 0.4);
+  box-shadow: 
+    0 12px 40px 0 rgba(184, 148, 30, 0.2),
+    0 4px 12px 0 rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
+    0 0 0 1px rgba(184, 148, 30, 0.15);
+}
+
+/* Shimmer effect on toggle */
+.theme-toggle-pill::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(245, 245, 242, 0.08) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  animation: shimmer 4s infinite;
+  pointer-events: none;
+}
+
+/* Additional light theme overrides for better readability */
+.champagne .theme-toggle-pill::before {
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%
+  );
+}
+
+/* Fix for loading spinner in light theme */
+.champagne .text-gold svg {
+  color: #8B7419 !important;
+}
+
+/* Admin page header in light theme */
+.champagne .glass-panel.border-b {
+  border-bottom-color: rgba(184, 148, 30, 0.15) !important;
+}
+
+/* Selection text legibility in light theme */
+.champagne ::selection {
+  background-color: rgba(184, 148, 30, 0.3);
+  color: var(--color-text-primary);
+}
+
+.champagne ::-moz-selection {
+  background-color: rgba(184, 148, 30, 0.3);
+  color: var(--color-text-primary);
 }

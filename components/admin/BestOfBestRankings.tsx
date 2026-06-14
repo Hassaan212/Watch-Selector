@@ -94,9 +94,8 @@ export default function BestOfBestRankings({ stats }: BestOfBestRankingsProps) {
                 x: 4,
                 scale: 1.012,
                 transition: {
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 25
+                  duration: 0.18,
+                  ease: [0.25, 0.1, 0.25, 1]
                 }
               }}
               className={`flex items-center gap-4 rounded-[20px] p-5 group cursor-pointer ${
@@ -108,7 +107,7 @@ export default function BestOfBestRankings({ stats }: BestOfBestRankingsProps) {
                 boxShadow: stat.rank === 1
                   ? '0 8px 28px 0 rgba(212, 175, 55, 0.25), inset 0 2px 0 rgba(248, 248, 240, 0.12)'
                   : '0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(248, 248, 240, 0.06)',
-                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+                transition: 'all 0.18s ease-out'
               }}
             >
               {/* Hover state enhancements for non-first ranks */}
@@ -129,27 +128,26 @@ export default function BestOfBestRankings({ stats }: BestOfBestRankingsProps) {
                   scale: 1.08,
                   rotate: stat.rank === 1 ? 5 : 0,
                   transition: {
-                    type: 'spring',
-                    stiffness: 400,
-                    damping: 20
+                    duration: 0.15,
+                    ease: [0.25, 0.1, 0.25, 1]
                   }
                 }}
               >
                 {getRankIcon(stat.rank)}
               </motion.div>
               <div className="flex-1 min-w-0">
-                <p className="text-white font-semibold text-base group-hover:text-white transition-colors duration-200">
+                <p className="text-white font-semibold text-base group-hover:text-white transition-colors duration-150">
                   {stat.brand}
                 </p>
-                <p className={`text-sm truncate ${stat.rank === 1 ? 'text-gold/80 group-hover:text-gold' : 'text-white/50 group-hover:text-white/60'} transition-colors duration-200`}>
+                <p className={`text-sm truncate ${stat.rank === 1 ? 'text-gold/80 group-hover:text-gold' : 'text-white/50 group-hover:text-white/60'} transition-colors duration-150`}>
                   {stat.model}
                 </p>
               </div>
               <div className="text-right flex-shrink-0">
-                <p className="text-white font-bold text-base group-hover:text-white transition-colors duration-200">
+                <p className="text-white font-bold text-base group-hover:text-white transition-colors duration-150">
                   {stat.count} {stat.count === 1 ? 'vote' : 'votes'}
                 </p>
-                <p className={`text-sm ${stat.rank === 1 ? 'text-gold/70 group-hover:text-gold/85' : 'text-white/50 group-hover:text-white/60'} transition-colors duration-200`}>
+                <p className={`text-sm ${stat.rank === 1 ? 'text-gold/70 group-hover:text-gold/85' : 'text-white/50 group-hover:text-white/60'} transition-colors duration-150`}>
                   {stat.percentage.toFixed(1)}%
                 </p>
               </div>

@@ -62,15 +62,14 @@ export default function RankingsList({ stats }: RankingsListProps) {
                 x: 4,
                 scale: 1.012,
                 transition: {
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 25
+                  duration: 0.18,
+                  ease: [0.25, 0.1, 0.25, 1]
                 }
               }}
               className="flex items-center gap-4 glass-panel rounded-[20px] p-5 group cursor-pointer"
               style={{
                 boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(248, 248, 240, 0.06)',
-                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+                transition: 'all 0.18s ease-out'
               }}
             >
               {/* Hover state enhancements */}
@@ -88,27 +87,26 @@ export default function RankingsList({ stats }: RankingsListProps) {
                 whileHover={{
                   scale: 1.08,
                   transition: {
-                    type: 'spring',
-                    stiffness: 400,
-                    damping: 20
+                    duration: 0.15,
+                    ease: [0.25, 0.1, 0.25, 1]
                   }
                 }}
               >
                 {getRankIcon(stat.rank)}
               </motion.div>
               <div className="flex-1 min-w-0">
-                <p className="text-white font-semibold text-base group-hover:text-white transition-colors duration-200">
+                <p className="text-white font-semibold text-base group-hover:text-white transition-colors duration-150">
                   {stat.brand}
                 </p>
-                <p className="text-white/50 text-sm truncate group-hover:text-white/60 transition-colors duration-200">
+                <p className="text-white/50 text-sm truncate group-hover:text-white/60 transition-colors duration-150">
                   {stat.model}
                 </p>
               </div>
               <div className="text-right flex-shrink-0">
-                <p className="text-white font-bold text-base group-hover:text-white transition-colors duration-200">
+                <p className="text-white font-bold text-base group-hover:text-white transition-colors duration-150">
                   {stat.count} votes
                 </p>
-                <p className="text-white/50 text-sm group-hover:text-white/60 transition-colors duration-200">
+                <p className="text-white/50 text-sm group-hover:text-white/60 transition-colors duration-150">
                   {stat.percentage.toFixed(1)}%
                 </p>
               </div>

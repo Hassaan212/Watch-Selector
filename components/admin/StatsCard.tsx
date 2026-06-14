@@ -25,15 +25,14 @@ export default function StatsCard({ icon, label, value, color = 'gold' }: StatsC
         y: -3,
         scale: 1.015,
         transition: {
-          type: 'spring',
-          stiffness: 400,
-          damping: 25
+          duration: 0.15,
+          ease: [0.25, 0.1, 0.25, 1]
         }
       }}
       className="glass-panel rounded-[28px] p-7 relative overflow-hidden group cursor-pointer"
       style={{
         boxShadow: '0 12px 40px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(248, 248, 240, 0.08)',
-        transition: 'box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'box-shadow 0.15s ease-out, background 0.15s ease-out'
       }}
     >
       {/* Hover state enhancements */}
@@ -52,7 +51,7 @@ export default function StatsCard({ icon, label, value, color = 'gold' }: StatsC
         style={{
           background: 'radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.06) 0%, transparent 70%)'
         }}
-        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+        transition={{ duration: 0.15, ease: 'easeOut' }}
       />
 
       <div className="relative z-10">
@@ -68,9 +67,8 @@ export default function StatsCard({ icon, label, value, color = 'gold' }: StatsC
           whileHover={{
             scale: 1.05,
             transition: {
-              type: 'spring',
-              stiffness: 400,
-              damping: 20
+              duration: 0.12,
+              ease: [0.25, 0.1, 0.25, 1]
             }
           }}
           className="inline-flex p-3.5 glass-panel rounded-[18px] mb-5"
@@ -88,7 +86,7 @@ export default function StatsCard({ icon, label, value, color = 'gold' }: StatsC
           animate={{ opacity: 1 }}
           transition={{ delay: 0.15 }}
           className="text-white/60 text-sm mb-3 font-medium group-hover:text-white/75"
-          style={{ transition: 'color 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
+          style={{ transition: 'color 0.15s ease-out' }}
         >
           {label}
         </motion.p>
@@ -102,7 +100,7 @@ export default function StatsCard({ icon, label, value, color = 'gold' }: StatsC
             delay: 0.2
           }}
           className="text-white text-3xl font-bold tracking-tight group-hover:text-white"
-          style={{ transition: 'color 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
+          style={{ transition: 'color 0.15s ease-out' }}
         >
           {value}
         </motion.p>

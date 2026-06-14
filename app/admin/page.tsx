@@ -402,24 +402,22 @@ export default function AdminDashboard() {
                 scale: 1.02,
                 y: -1,
                 transition: {
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 25
+                  duration: 0.15,
+                  ease: [0.25, 0.1, 0.25, 1]
                 }
               }}
               whileTap={{
                 scale: 0.98,
                 transition: {
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 25
+                  duration: 0.1,
+                  ease: [0.25, 0.1, 0.25, 1]
                 }
               }}
               onClick={exportToCSV}
               className="flex items-center gap-2 px-5 py-2.5 glass-panel rounded-[18px] text-white text-sm cursor-pointer group"
               style={{
                 boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(248, 248, 240, 0.06)',
-                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+                transition: 'all 0.15s ease-out'
               }}
             >
               <style jsx>{`
@@ -430,32 +428,30 @@ export default function AdminDashboard() {
                               inset 0 1px 0 rgba(248, 248, 240, 0.08) !important;
                 }
               `}</style>
-              <Download className="w-4 h-4 group-hover:text-gold transition-colors duration-200" strokeWidth={1.5} />
-              <span className="group-hover:text-white transition-colors duration-200">Export CSV</span>
+              <Download className="w-4 h-4 group-hover:text-gold transition-colors duration-150" strokeWidth={1.5} />
+              <span className="group-hover:text-white transition-colors duration-150">Export CSV</span>
             </motion.button>
             <motion.button
               whileHover={{
                 scale: 1.02,
                 y: -1,
                 transition: {
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 25
+                  duration: 0.15,
+                  ease: [0.25, 0.1, 0.25, 1]
                 }
               }}
               whileTap={{
                 scale: 0.98,
                 transition: {
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 25
+                  duration: 0.1,
+                  ease: [0.25, 0.1, 0.25, 1]
                 }
               }}
               onClick={handleLogout}
               className="flex items-center gap-2 px-5 py-2.5 glass-panel rounded-[18px] text-white cursor-pointer group"
               style={{
                 boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(248, 248, 240, 0.06)',
-                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+                transition: 'all 0.15s ease-out'
               }}
             >
               <style jsx>{`
@@ -466,8 +462,8 @@ export default function AdminDashboard() {
                               inset 0 1px 0 rgba(248, 248, 240, 0.08) !important;
                 }
               `}</style>
-              <LogOut className="w-4 h-4 group-hover:text-gold transition-colors duration-200" strokeWidth={1.5} />
-              <span className="group-hover:text-white transition-colors duration-200">Logout</span>
+              <LogOut className="w-4 h-4 group-hover:text-gold transition-colors duration-150" strokeWidth={1.5} />
+              <span className="group-hover:text-white transition-colors duration-150">Logout</span>
             </motion.button>
           </div>
         </div>
@@ -479,9 +475,8 @@ export default function AdminDashboard() {
               whileHover={{
                 y: -1,
                 transition: {
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 25
+                  duration: 0.15,
+                  ease: [0.25, 0.1, 0.25, 1]
                 }
               }}
               onClick={() => setActiveTab('overview')}
@@ -491,7 +486,7 @@ export default function AdminDashboard() {
                   : 'text-white/50 hover:text-white'
               }`}
               style={{
-                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+                transition: 'all 0.15s ease-out'
               }}
             >
               Overview
@@ -515,9 +510,8 @@ export default function AdminDashboard() {
               whileHover={{
                 y: -1,
                 transition: {
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 25
+                  duration: 0.15,
+                  ease: [0.25, 0.1, 0.25, 1]
                 }
               }}
               onClick={() => setActiveTab('management')}
@@ -527,7 +521,7 @@ export default function AdminDashboard() {
                   : 'text-white/50 hover:text-white'
               }`}
               style={{
-                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+                transition: 'all 0.15s ease-out'
               }}
             >
               Manage Watches

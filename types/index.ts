@@ -30,6 +30,7 @@ export interface Submission {
   timestamp: Date;
   sessionId: string;
   nickname?: string;
+  participantName?: string;
 }
 
 export interface WatchStats {

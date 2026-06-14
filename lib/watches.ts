@@ -42,6 +42,7 @@ export async function submitVote(
   watches: Array<{ id: string; brand: string; model: string }>,
   finalWinner: { id: string; brand: string; model: string },
   sessionId: string,
+  participantName: string,
   nickname?: string
 ): Promise<void> {
   await addDoc(collection(db, SUBMISSIONS_COLLECTION), {
@@ -50,6 +51,7 @@ export async function submitVote(
     finalWinnerId: finalWinner.id,
     finalWinner: finalWinner,
     sessionId,
+    participantName,
     nickname: nickname || null,
     timestamp: Timestamp.now(),
   });
@@ -79,6 +81,7 @@ export async function getSubmissions(): Promise<Submission[]> {
         // Common fields
         sessionId: data.sessionId,
         nickname: data.nickname,
+        participantName: data.participantName,
         timestamp: data.timestamp?.toDate() || new Date(),
       };
     }) as Submission[];

@@ -21,6 +21,7 @@ import SubmissionsList from '@/components/admin/SubmissionsList';
 import VotesChart from '@/components/admin/VotesChart';
 import RankingsList from '@/components/admin/RankingsList';
 import BestOfBestRankings from '@/components/admin/BestOfBestRankings';
+import RecentParticipants from '@/components/admin/RecentParticipants';
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -70,6 +71,7 @@ export default function AdminDashboard() {
           // Common fields
           sessionId: data.sessionId,
           nickname: data.nickname,
+          participantName: data.participantName,
           timestamp: data.timestamp?.toDate() || new Date(),
         };
       }) as Submission[];
@@ -180,7 +182,7 @@ export default function AdminDashboard() {
   }
 
   function exportToCSV() {
-    const headers = ['Watches Selected (Round 1)', 'Final Winner (Round 2)', 'Timestamp', 'Session ID', 'Nickname'];
+    const headers = ['Participant Name', 'Top 5 Watches', 'Best of Best Winner', 'Submission Date', 'Session ID'];
     const rows = submissions.map(sub => {
       let watchesText = '';
       let winnerText = '';
@@ -201,12 +203,14 @@ export default function AdminDashboard() {
         winnerText = `${sub.finalWinner.brand} ${sub.finalWinner.model}`;
       }
       
+      const participantName = sub.participantName || 'Anonymous';
+      
       return [
+        participantName,
         watchesText,
         winnerText,
         sub.timestamp.toISOString(),
         sub.sessionId,
-        sub.nickname || 'Anonymous',
       ];
     });
 
@@ -368,6 +372,9 @@ export default function AdminDashboard() {
 
             {/* Best of Best Rankings */}
             <BestOfBestRankings stats={bestOfBestStats} />
+
+            {/* Recent Participants */}
+            <RecentParticipants submissions={submissions} />
 
             {/* Chart */}
             <VotesChart stats={stats} />

@@ -64,7 +64,15 @@ export default function SubmissionsList({ submissions }: SubmissionsListProps) {
                     {submission.watchBrand} {submission.watchModel}
                   </p>
                 )}
-                {submission.nickname && (
+                {/* Participant Name */}
+                {submission.participantName && (
+                  <div className="flex items-center gap-2 mt-2">
+                    <User className="w-3 h-3 text-amber-500" />
+                    <p className="text-amber-400 text-sm font-medium">{submission.participantName}</p>
+                  </div>
+                )}
+                {/* Legacy nickname field */}
+                {!submission.participantName && submission.nickname && (
                   <div className="flex items-center gap-2 mt-2">
                     <User className="w-3 h-3 text-zinc-500" />
                     <p className="text-zinc-400 text-sm">{submission.nickname}</p>

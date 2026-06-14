@@ -6,14 +6,18 @@ import { Watch } from '@/types';
 import { getWatches, submitVote } from '@/lib/watches';
 import { getSessionId, hasSubmitted, markAsSubmitted } from '@/lib/sessionId';
 import WatchCard from '@/components/WatchCard';
+import WelcomeScreen from '@/components/WelcomeScreen';
 import SuccessScreen from '@/components/SuccessScreen';
 import { ArrowRight, Loader2, Trophy } from 'lucide-react';
 
-type VotingStage = 'round1' | 'round2' | 'success';
+type VotingStage = 'welcome' | 'round1' | 'round2' | 'success';
 
 export default function Home() {
   const [watches, setWatches] = useState<Watch[]>([]);
-  const [stage, setStage] = useState<VotingStage>('round1');
+  const [stage, setStage] = useState<VotingStage>('welcome');
+  
+  // Participant name
+  const [participantName, setParticipantName] = useState<string>('');
   
   // Round 1: Select 5 watches
   const [selectedWatchIds, setSelectedWatchIds] = useState<string[]>([]);
@@ -40,6 +44,12 @@ export default function Home() {
     const watchesData = await getWatches();
     setWatches(watchesData);
     setLoading(false);
+  }
+
+  // Handle welcome screen completion
+  function handleWelcomeContinue(name: string) {
+    setParticipantName(name);
+    setStage('round1');
   }
 
   // Round 1: Handle watch selection (max 5)
@@ -73,7 +83,7 @@ export default function Home() {
 
   // Round 2: Submit final vote
   async function handleFinalSubmit() {
-    if (!finalWinnerId || selectedWatchIds.length !== 5 || isSubmitting) return;
+    if (!finalWinnerId || selectedWatchIds.length !== 5 || isSubmitting || !participantName) return;
 
     const selectedWatches = watches.filter(w => selectedWatchIds.includes(w.id));
     const winner = watches.find(w => w.id === finalWinnerId);
@@ -95,7 +105,8 @@ export default function Home() {
           brand: winner.brand,
           model: winner.model,
         },
-        sessionId
+        sessionId,
+        participantName
       );
       
       markAsSubmitted();
@@ -118,6 +129,10 @@ export default function Home() {
 
   if (stage === 'success') {
     return <SuccessScreen />;
+  }
+
+  if (stage === 'welcome') {
+    return <WelcomeScreen onContinue={handleWelcomeContinue} />;
   }
 
   // Round 1: Select 5 watches

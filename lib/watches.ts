@@ -40,12 +40,15 @@ export async function deleteWatch(watchId: string): Promise<void> {
 // Submission Management
 export async function submitVote(
   watches: Array<{ id: string; brand: string; model: string }>,
+  finalWinner: { id: string; brand: string; model: string },
   sessionId: string,
   nickname?: string
 ): Promise<void> {
   await addDoc(collection(db, SUBMISSIONS_COLLECTION), {
     watchIds: watches.map(w => w.id),
     selectedWatches: watches,
+    finalWinnerId: finalWinner.id,
+    finalWinner: finalWinner,
     sessionId,
     nickname: nickname || null,
     timestamp: Timestamp.now(),
@@ -63,9 +66,12 @@ export async function getSubmissions(): Promise<Submission[]> {
       const data = doc.data();
       return {
         id: doc.id,
-        // New format
+        // Round 1: Multiple selections
         watchIds: data.watchIds,
         selectedWatches: data.selectedWatches,
+        // Round 2: Final winner
+        finalWinnerId: data.finalWinnerId,
+        finalWinner: data.finalWinner,
         // Legacy format
         watchId: data.watchId,
         watchBrand: data.watchBrand,

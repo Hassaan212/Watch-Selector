@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Submission } from '@/types';
-import { Clock, User } from 'lucide-react';
+import { Clock, User, Trophy } from 'lucide-react';
 
 interface SubmissionsListProps {
   submissions: Submission[];
@@ -36,12 +36,27 @@ export default function SubmissionsList({ submissions }: SubmissionsListProps) {
               <div className="flex-1">
                 {/* Display multiple watches (new format) */}
                 {submission.selectedWatches && submission.selectedWatches.length > 0 ? (
-                  <div className="space-y-1">
-                    {submission.selectedWatches.map((watch, idx) => (
-                      <p key={idx} className="text-white font-semibold">
-                        {idx + 1}. {watch.brand} {watch.model}
-                      </p>
-                    ))}
+                  <div className="space-y-2">
+                    <div className="space-y-1">
+                      <p className="text-zinc-500 text-xs uppercase">Round 1 Selections:</p>
+                      {submission.selectedWatches.map((watch, idx) => (
+                        <p key={idx} className="text-white font-semibold text-sm">
+                          {idx + 1}. {watch.brand} {watch.model}
+                        </p>
+                      ))}
+                    </div>
+                    {/* Display final winner if exists */}
+                    {submission.finalWinner && (
+                      <div className="mt-2 pt-2 border-t border-zinc-700">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Trophy className="w-4 h-4 text-amber-500" />
+                          <p className="text-amber-500 text-xs uppercase font-semibold">Best of Best:</p>
+                        </div>
+                        <p className="text-amber-400 font-bold">
+                          {submission.finalWinner.brand} {submission.finalWinner.model}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   /* Display single watch (old format) */
@@ -50,7 +65,7 @@ export default function SubmissionsList({ submissions }: SubmissionsListProps) {
                   </p>
                 )}
                 {submission.nickname && (
-                  <div className="flex items-center gap-2 mt-1">
+                  <div className="flex items-center gap-2 mt-2">
                     <User className="w-3 h-3 text-zinc-500" />
                     <p className="text-zinc-400 text-sm">{submission.nickname}</p>
                   </div>

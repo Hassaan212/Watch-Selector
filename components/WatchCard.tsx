@@ -1,8 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Watch } from '@/types';
-import { Check } from 'lucide-react';
+import { Check, Watch as WatchIcon } from 'lucide-react';
 
 interface WatchCardProps {
   watch: Watch;
@@ -11,6 +12,8 @@ interface WatchCardProps {
 }
 
 export default function WatchCard({ watch, isSelected, onSelect }: WatchCardProps) {
+  const [imageError, setImageError] = useState(false);
+
   return (
     <motion.div
       whileHover={{ scale: 1.02, y: -5 }}
@@ -41,12 +44,22 @@ export default function WatchCard({ watch, isSelected, onSelect }: WatchCardProp
         )}
 
         {/* Watch Image */}
-        <div className="relative h-72 bg-zinc-950 overflow-hidden">
-          <img
-            src={watch.image}
-            alt={`${watch.brand} ${watch.model}`}
-            className="w-full h-full object-cover"
-          />
+        <div className="relative h-72 bg-zinc-950 overflow-hidden flex items-center justify-center">
+          {imageError ? (
+            // Fallback placeholder for broken images
+            <div className="flex flex-col items-center justify-center text-zinc-600">
+              <WatchIcon className="w-20 h-20 mb-2" />
+              <p className="text-sm">Image unavailable</p>
+            </div>
+          ) : (
+            <img
+              src={watch.image}
+              alt={`${watch.brand} ${watch.model}`}
+              className="w-full h-full object-cover"
+              onError={() => setImageError(true)}
+              loading="lazy"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent" />
         </div>
 

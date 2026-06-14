@@ -27,7 +27,7 @@ export default function SuccessScreen() {
           transition={{ delay: 0.3 }}
           className="text-4xl md:text-5xl font-bold text-white mb-4"
         >
-          Thanks! 🙏
+          Thank you for participating! 🙏
         </motion.h1>
 
         <motion.p
@@ -36,7 +36,7 @@ export default function SuccessScreen() {
           transition={{ delay: 0.4 }}
           className="text-xl text-zinc-400"
         >
-          Your votes have been recorded.
+          Your selections have been recorded successfully.
         </motion.p>
 
         <motion.div

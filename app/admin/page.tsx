@@ -20,6 +20,7 @@ import StatsCard from '@/components/admin/StatsCard';
 import SubmissionsList from '@/components/admin/SubmissionsList';
 import VotesChart from '@/components/admin/VotesChart';
 import RankingsList from '@/components/admin/RankingsList';
+import BestOfBestRankings from '@/components/admin/BestOfBestRankings';
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,6 +30,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'management'>('overview');
   const [stats, setStats] = useState<WatchStats[]>([]);
+  const [bestOfBestStats, setBestOfBestStats] = useState<WatchStats[]>([]);
 
   useEffect(() => {
     // Check if already authenticated
@@ -55,10 +57,13 @@ export default function AdminDashboard() {
         const data = doc.data();
         return {
           id: doc.id,
-          // New format (3 watches)
+          // Round 1: Multiple selections
           watchIds: data.watchIds,
           selectedWatches: data.selectedWatches,
-          // Old format (1 watch)
+          // Round 2: Final winner
+          finalWinnerId: data.finalWinnerId,
+          finalWinner: data.finalWinner,
+          // Old format
           watchId: data.watchId,
           watchBrand: data.watchBrand,
           watchModel: data.watchModel,
@@ -71,6 +76,7 @@ export default function AdminDashboard() {
       
       setSubmissions(submissionsData);
       calculateStats(submissionsData, watches);
+      calculateBestOfBestStats(submissionsData, watches);
     });
 
     return () => unsubscribe();
@@ -84,6 +90,7 @@ export default function AdminDashboard() {
     setWatches(watchesData);
     setSubmissions(submissionsData);
     calculateStats(submissionsData, watchesData);
+    calculateBestOfBestStats(submissionsData, watchesData);
     setLoading(false);
   }
 
@@ -122,6 +129,37 @@ export default function AdminDashboard() {
     setStats(statsData);
   }
 
+  function calculateBestOfBestStats(subs: Submission[], ws: Watch[]) {
+    const winnerCounts = new Map<string, number>();
+    
+    subs.forEach(sub => {
+      // Count only final winners (Round 2 selections)
+      if (sub.finalWinnerId) {
+        winnerCounts.set(sub.finalWinnerId, (winnerCounts.get(sub.finalWinnerId) || 0) + 1);
+      }
+    });
+
+    // Count total final round submissions
+    const totalWinners = Array.from(winnerCounts.values()).reduce((sum, count) => sum + count, 0);
+    
+    const bestOfBestData: WatchStats[] = ws.map(watch => ({
+      watchId: watch.id,
+      brand: watch.brand,
+      model: watch.model,
+      count: winnerCounts.get(watch.id) || 0,
+      percentage: totalWinners > 0 ? ((winnerCounts.get(watch.id) || 0) / totalWinners) * 100 : 0,
+      rank: 0,
+    }));
+
+    // Sort by count and assign ranks
+    bestOfBestData.sort((a, b) => b.count - a.count);
+    bestOfBestData.forEach((stat, index) => {
+      stat.rank = index + 1;
+    });
+
+    setBestOfBestStats(bestOfBestData);
+  }
+
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123';
@@ -142,11 +180,12 @@ export default function AdminDashboard() {
   }
 
   function exportToCSV() {
-    const headers = ['Watches Selected', 'Timestamp', 'Session ID', 'Nickname'];
+    const headers = ['Watches Selected (Round 1)', 'Final Winner (Round 2)', 'Timestamp', 'Session ID', 'Nickname'];
     const rows = submissions.map(sub => {
       let watchesText = '';
+      let winnerText = '';
       
-      // New format (multiple watches)
+      // New format (5 watches + final winner)
       if (sub.selectedWatches && sub.selectedWatches.length > 0) {
         watchesText = sub.selectedWatches
           .map(w => `${w.brand} ${w.model}`)
@@ -157,8 +196,14 @@ export default function AdminDashboard() {
         watchesText = `${sub.watchBrand} ${sub.watchModel}`;
       }
       
+      // Final winner (Round 2)
+      if (sub.finalWinner) {
+        winnerText = `${sub.finalWinner.brand} ${sub.finalWinner.model}`;
+      }
+      
       return [
         watchesText,
+        winnerText,
         sub.timestamp.toISOString(),
         sub.sessionId,
         sub.nickname || 'Anonymous',
@@ -320,6 +365,9 @@ export default function AdminDashboard() {
 
             {/* Rankings */}
             <RankingsList stats={stats} />
+
+            {/* Best of Best Rankings */}
+            <BestOfBestRankings stats={bestOfBestStats} />
 
             {/* Chart */}
             <VotesChart stats={stats} />

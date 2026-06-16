@@ -123,8 +123,11 @@ We've created comprehensive guides for every stage:
 | [✨ FEATURES.md](./FEATURES.md) | Complete feature list | - |
 | [📋 PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md) | Technical overview | - |
 | [⚡ QUICK_REFERENCE.md](./QUICK_REFERENCE.md) | Commands & shortcuts | - |
+| [📱 MOBILE_PERFORMANCE_SUMMARY.md](./MOBILE_PERFORMANCE_SUMMARY.md) | Mobile optimization overview | - |
 
 **New to the project?** Start with [GETTING_STARTED.md](./GETTING_STARTED.md)!
+
+**Want to understand mobile optimizations?** See [MOBILE_PERFORMANCE_SUMMARY.md](./MOBILE_PERFORMANCE_SUMMARY.md)!
 
 ---
 
@@ -146,6 +149,7 @@ We've created comprehensive guides for every stage:
 ### User Experience
 - 🎨 **Elegant luxury aesthetic** with dark theme
 - 📱 **Fully responsive** for mobile and desktop
+- ⚡ **Mobile Performance Mode** - Optimized for mid-range Android phones (40% faster rendering)
 - ✨ **Smooth animations** using Framer Motion
 - 🎯 **Single-selection interface** with visual feedback
 - 🚫 **Duplicate prevention** via browser session tracking

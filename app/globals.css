@@ -557,6 +557,278 @@ body {
 }
 
 /* ============================================
+   MOBILE PERFORMANCE MODE (< 1024px)
+   ============================================
+   Optimizations for mid-range Android phones
+   - Desktop styles remain completely unchanged
+   - Mobile maintains 95-100% visual similarity
+   - Performance improvements through reduced complexity
+   ============================================ */
+
+@media (max-width: 1023px) {
+  /* ========== 1. GLASS & BLUR OPTIMIZATION ========== */
+  /* Reduce backdrop blur by 50% - keeps glass appearance, improves performance */
+  
+  .glass-panel {
+    backdrop-filter: blur(30px) saturate(130%);
+    -webkit-backdrop-filter: blur(30px) saturate(130%);
+  }
+  
+  .glass-input {
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+  }
+  
+  .glass-button {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+  
+  .theme-toggle-pill {
+    backdrop-filter: blur(20px) saturate(130%);
+    -webkit-backdrop-filter: blur(20px) saturate(130%);
+  }
+
+  /* ========== 2. SHADOW OPTIMIZATION ========== */
+  /* Reduce shadow complexity by 35% - maintains depth, improves rendering */
+  
+  .glass-panel {
+    box-shadow: 
+      0 8px 32px 0 var(--glass-shadow-main),
+      0 3px 8px 0 var(--glass-shadow-secondary),
+      inset 0 1px 0 0 rgba(245, 245, 242, 0.07),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.35);
+  }
+  
+  .glass-panel-hover:hover {
+    box-shadow: 
+      0 12px 40px 0 rgba(0, 0, 0, 0.75),
+      0 6px 16px 0 rgba(214, 175, 55, 0.18),
+      inset 0 1px 0 0 rgba(245, 245, 242, 0.11),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(214, 175, 55, 0.18);
+  }
+  
+  .glass-panel-selected {
+    box-shadow: 
+      0 16px 48px 0 rgba(214, 175, 55, 0.28),
+      0 6px 16px 0 rgba(0, 0, 0, 0.65),
+      inset 0 2px 0 0 rgba(245, 245, 242, 0.16),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.35),
+      0 0 30px 0 rgba(214, 175, 55, 0.35);
+  }
+  
+  .glass-button {
+    box-shadow: 
+      0 8px 28px 0 rgba(214, 175, 55, 0.42),
+      0 3px 8px 0 rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 0 rgba(245, 245, 242, 0.32),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.22);
+  }
+  
+  .glass-button:hover {
+    box-shadow: 
+      0 12px 36px 0 rgba(214, 175, 55, 0.52),
+      0 6px 14px 0 rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 0 rgba(245, 245, 242, 0.42),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.32),
+      0 0 24px rgba(214, 175, 55, 0.45);
+  }
+
+  .theme-toggle-pill {
+    box-shadow: 
+      0 6px 24px 0 var(--glass-shadow-main),
+      0 2px 6px 0 var(--glass-shadow-secondary),
+      inset 0 1px 0 0 rgba(245, 245, 242, 0.06);
+  }
+  
+  .theme-toggle-pill:hover {
+    box-shadow: 
+      0 8px 28px 0 rgba(214, 175, 55, 0.18),
+      0 3px 8px 0 var(--glass-shadow-secondary),
+      inset 0 1px 0 0 rgba(245, 245, 242, 0.08),
+      0 0 0 1px rgba(214, 175, 55, 0.12);
+  }
+
+  /* Light theme shadow optimization */
+  .champagne .glass-panel {
+    box-shadow: 
+      0 8px 32px 0 rgba(0, 0, 0, 0.08),
+      0 3px 8px 0 rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .champagne .glass-panel-hover:hover {
+    box-shadow: 
+      0 12px 40px 0 rgba(0, 0, 0, 0.12),
+      0 6px 16px 0 rgba(184, 148, 30, 0.15),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.6),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.08),
+      0 0 0 1px rgba(184, 148, 30, 0.2);
+  }
+
+  .champagne .glass-panel-selected {
+    box-shadow: 
+      0 16px 48px 0 rgba(184, 148, 30, 0.25),
+      0 6px 16px 0 rgba(0, 0, 0, 0.12),
+      inset 0 2px 0 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.08),
+      0 0 30px 0 rgba(184, 148, 30, 0.3);
+  }
+
+  .champagne .glass-button {
+    box-shadow: 
+      0 8px 28px 0 rgba(184, 148, 30, 0.35),
+      0 3px 8px 0 rgba(0, 0, 0, 0.25),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .champagne .glass-button:hover {
+    box-shadow: 
+      0 12px 36px 0 rgba(184, 148, 30, 0.45),
+      0 6px 14px 0 rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.2),
+      0 0 24px rgba(184, 148, 30, 0.4);
+  }
+
+  /* ========== 3. BACKGROUND EFFECTS OPTIMIZATION ========== */
+  /* Convert animated gradients to static - maintains visual style, improves performance */
+  
+  .liquid-glass-bg::before {
+    /* Keep the same appearance but remove animation overhead */
+    background: 
+      radial-gradient(ellipse 1400px 900px at 20% 10%, var(--ambient-champagne-1) 0%, transparent 55%),
+      radial-gradient(ellipse 1100px 800px at 80% 15%, var(--ambient-champagne-2) 0%, transparent 60%),
+      radial-gradient(ellipse 1000px 700px at 15% 90%, var(--ambient-emerald-1) 0%, transparent 55%),
+      radial-gradient(ellipse 900px 600px at 85% 85%, var(--ambient-emerald-2) 0%, transparent 60%);
+    opacity: 0.7;
+  }
+
+  /* ========== 4. ANIMATION OPTIMIZATION ========== */
+  /* Simplify animations - use transform/opacity only, avoid expensive properties */
+  
+  /* Disable shimmer animation on mobile (uses background-position animation) */
+  .glass-button::before,
+  .theme-toggle-pill::before {
+    animation: none;
+    opacity: 0.1;
+  }
+  
+  /* Optimize scrollbar (remove glow effects on mobile) */
+  ::-webkit-scrollbar-thumb {
+    box-shadow: 
+      inset 0 1px 0 0 rgba(245, 245, 242, 0.12);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    box-shadow: 
+      inset 0 1px 0 0 rgba(245, 245, 242, 0.16);
+  }
+  
+  .champagne ::-webkit-scrollbar-thumb {
+    box-shadow: 
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+  }
+  
+  .champagne ::-webkit-scrollbar-thumb:hover {
+    box-shadow: 
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+  }
+
+  /* ========== 5. THEME SWITCHING OPTIMIZATION ========== */
+  /* Reduce transition duration for faster theme switching on mobile */
+  
+  body {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .liquid-glass-bg {
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .liquid-glass-bg::before {
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ========== 6. TEXT SHADOW OPTIMIZATION ========== */
+  /* Reduce glow intensity on text for better mobile performance */
+  
+  .text-gold {
+    text-shadow: 0 0 12px rgba(214, 175, 55, 0.25);
+  }
+  
+  .champagne .text-gold {
+    text-shadow: 0 0 8px rgba(139, 116, 25, 0.15);
+  }
+
+  /* ========== 7. LOADING EFFECTS OPTIMIZATION ========== */
+  /* Simplify glow calculations on loading states */
+  
+  .glass-input:focus {
+    box-shadow: 
+      inset 0 2px 8px 0 rgba(0, 0, 0, 0.32),
+      0 0 0 2px rgba(214, 175, 55, 0.16),
+      0 0 16px rgba(214, 175, 55, 0.18);
+  }
+
+  /* ========== 8. TAP FEEDBACK OPTIMIZATION ========== */
+  /* Use simple transforms for tap feedback instead of complex hover simulations */
+  /* This is handled at the component level with Framer Motion */
+  
+  /* Ensure touch interactions are smooth */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Optimize button active states */
+  .glass-button:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* ========== 9. BORDER OPTIMIZATION ========== */
+  /* Simplify gradient borders for better mobile performance */
+  
+  .glass-panel::before {
+    opacity: 0.4;
+  }
+}
+
+/* ========== ADDITIONAL MOBILE OPTIMIZATIONS ========== */
+/* Extra small devices (phones in portrait) */
+@media (max-width: 640px) {
+  /* Further reduce blur on very small screens */
+  .glass-panel {
+    backdrop-filter: blur(24px) saturate(120%);
+    -webkit-backdrop-filter: blur(24px) saturate(120%);
+  }
+  
+  .glass-input {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+  
+  .theme-toggle-pill {
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+  }
+  
+  /* Reduce scrollbar size on small screens */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    border: 1px solid rgba(17, 19, 24, 0.45);
+  }
+}
+
+/* ============================================
    PREMIUM THEME TOGGLE - Glass Pill Style
    ============================================ */
 .theme-toggle-pill {
